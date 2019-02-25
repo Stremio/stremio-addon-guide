@@ -7,6 +7,8 @@ The add-ons in Stremio are the most fundamental part of the app. They provide th
 
 An add-on in Stremio, unlike other similar apps, in most cases, does not run on client's computer. It is rather hosted on the Internet, just like any website. This has ease of use and security benefits for the end user.
 
+If add-on is served via HTTP, **CORS** headers must be present.
+
 TODO:
 
 The Add-on philosophy
@@ -41,14 +43,19 @@ Resources
 
 For Stremio to be able to display any data, it must first find it. For this purpose in every add-on's manifest, there are declared one or more resources that the add-on in question provides.
 
-The resources are basically a segmented way to build the content tree, we talked before.
+The resources are basically a segmented way to build the content tree, we talked before. Every resource is accessed at certain endpoint, where your add-on should respond with proper data.
 
+| Resource      | Endpoint         | Description                                                                                                                                   |
+| --------      | --------         | -----------                                                                                                                                   |
+| **manifest**  | `/manifest.json` | The add-on description and capabilities.                                                                                                      |
+| **catalogs**  | `/catalog/`      | Summarized collection of meta items. Catalogs are displayed on the Srtemio's **Board**. You can also browse the catalogs in the **Discover**. |
+| **metadata**  | `/meta/`         | Detailed description of meta item. This description is displayed when the user selects an item form the catalog.                              |
+| **streams**   | `/stream/`       | Tells Srtemio how to obtain the media content. It may be torrent info hash, HTTP URL e.t.c.                                                   |
+| **subtitles** | `/subtitles/`    | Subtitles resource for the chosen media.                                                                                                      |
 
- * **catalogs** - Summarized collection of meta items. Catalogs are displayed on the Srtemio's **Board**. You can also browse the catalogs in the **Discover**.
+Summary
+---
 
- * **metadata** - Detailed description of meta item. This description is displayed when the user selects an item form the catalog. 
+At this point you should be familiar with Stremio's media structure, how does add-ons work and their basic endpoints.
 
- * **streams** - Tells Srtemio how to obtain the media content. It may be torrent info hash, HTTP URL e.t.c.
-
- * **subtitles** - Subtitles resource for the chosen media.
-
+Fell free to proceed to the next chapter and start the guide.
