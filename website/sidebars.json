@@ -1,6 +1,6 @@
 {
   "docs": {
-    "Add-on architecture": ["basics"]
+    "Add-on guide": ["basics", "step1", "step2", "step3", "step4"]
   },
   "api": {
     "API Documentation": ["api", "manifest", "catalog", "stream", "meta"]
