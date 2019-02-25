@@ -1,0 +1,8 @@
+{
+  "docs": {
+    "Add-on architecture": ["basics"]
+  },
+  "api": {
+    "API Documentation": ["api", "manifest", "catalog", "stream", "meta"]
+  }
+}
