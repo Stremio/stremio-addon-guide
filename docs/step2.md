@@ -73,6 +73,14 @@ mkdir catalog\movie
 
 The name if the catalog's file must match the catalog `id`, that we defined in the manifest.
 
+This is our desired file structure:
+
+    my-stremio-addon
+    +-- manifest.json
+    +-- catalog
+        +-- movie
+            +-- movieCatalog.json
+
 We will add two movies in our catalog. The contents of the file should look like this:
 
 ```json
