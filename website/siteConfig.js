@@ -11,7 +11,7 @@
 const siteConfig = {
   title: 'Stremio add-ons guide', // Title for your website.
   tagline: 'A website for testing',
-  url: 'https://your-docusaurus-test-site.com', // Your website URL
+  url: '', // Your website URL
   baseUrl: '/', // Base URL for your project */
   // For github.io type URLs, you would set the url and baseUrl like:
   //   url: 'https://facebook.github.io',
@@ -64,11 +64,12 @@ const siteConfig = {
 
   highlight: {
     // Highlight.js theme to use for syntax highlighting in code blocks.
-    theme: 'default',
+    themeUrl: 'css/defaultHighlight.min.css',
+    //theme: 'default',
   },
 
   // Add custom scripts here that would be placed in <script> tags.
-  scripts: ['https://buttons.github.io/buttons.js'],
+  scripts: [],
 
   // On page navigation for the current documentation page.
   onPageNav: 'separate',
