@@ -3,7 +3,7 @@ id: meta
 title: Meta
 ---
 
-Used as a response for [`defineCatalogHandler`](../requests/defineCatalogHandler.md) and [`defineMetaHandler`](../requests/defineMetaHandler.md)
+Used as a response for `/catalog` and `/meta` resources.
 
 ``id`` - **required** - universal identifier, formed like `DOMAIN_id:ID`, for example `yt_id:UCrDkAvwZum-UTjHmzDI2iIw`.
 

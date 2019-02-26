@@ -9,8 +9,6 @@ An add-on in Stremio, unlike other similar apps, in most cases, does not run on 
 
 If add-on is served via HTTP, **CORS** headers must be present.
 
-TODO:
-
 The Add-on philosophy
 ---
 
@@ -41,7 +39,7 @@ The complete tree looks like that:
 Resources
 ---
 
-For Stremio to be able to display any data, it must first find it. For this purpose in every add-on's manifest, there are declared one or more resources that the add-on in question provides.
+For Stremio to be able to display any data, it must first find it. For this purpose in every add-on's manifest, there are declared one or more resources.
 
 The resources are basically a segmented way to build the content tree, we talked before. Every resource is accessed at certain endpoint, where your add-on should respond with proper data.
 
