@@ -49,7 +49,7 @@ mkdir my-stremio-addon
 cd my-stremio-addon
 cat > manifest.json
 {
-    "id": "uinique.add-on.id",
+    "id": "my.first.stremio.add-on",
     "version": "1.0.0",
     "name": "Hello, World",
     "description" : "My first Stremio add-on",
@@ -65,7 +65,7 @@ mkdir my-stremio-addon
 cd my-stremio-addon
 copy con manifest.json
 {
-    "id": "uinique.add-on.id",
+    "id": "my.first.stremio.add-on",
     "version": "1.0.0",
     "name": "Hello, World",
     "description" : "My first Stremio add-on",

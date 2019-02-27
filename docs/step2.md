@@ -37,7 +37,7 @@ So now our manifest should look like this:
 
 ```json
 {
-    "id": "uinique.add-on.id",
+    "id": "my.first.stremio.add-on",
     "version": "1.0.0",
     "name": "Hello, World",
     "description" : "My first Stremio add-on",
@@ -50,7 +50,7 @@ So now our manifest should look like this:
 }
 ```
 
-The catalogs array describes our addon's catalogs. Every catalog must have `id` that is unique for the add-on, `type` that matches one of the types defined in the manifest and a human-readable `name`.
+The `catalogs` array describes our addon's catalogs. Every catalog must have `id` that is unique for the add-on, `type` that matches one of the types defined in the manifest and a human-readable `name`.
 
 Now Stremio can search our add-on for a movie catalog.
 
