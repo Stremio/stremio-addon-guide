@@ -79,31 +79,10 @@ copy con manifest.json
 
 The `^D`/`^Z` in the last line means to press the <kbd>Control</kbd> key together with the corresponding letter on the keyboard. This signals the shell that we are finished typing our file.
 
-Install the new add-on
----
-
-> **Note for serving Stremio add-ons**
->
-> Every add-on must provide **CORS** headers for it's resources. Stremio can **not** make use of add-on that does not support CORS.
-
-For easy serving we'll use the `http-server` node module. You can of course use your favorite HTTP server. Just do not forget to configure it to serve CORS headers.
-
-```sh
-npm -g install http-server
-http-server --cors
-```
-
-By default `http-server` serves content on port 8080. It should be printed in your console window, the moment you run it.
-
-Our add-on's manifest should be located at `http://127.0.0.1:8080/manifest.json`
-
-Now let's install our new add-on. Go to Stremio. Open the add-ons configuration, either by clicking on the puzzle icon in the upper right corner or you can open it from the `Settings`. Now you can copy the add-on URL from here and paste it in the field labeled `Add-on Repository URL`. You should be prompted with the installation dialog. Just press `Install` and your add-on will appear in the `My add-ons` section.
-
-You successfully installed your first add-on. It is useless in it's current form so you'd better remove it by clicking on the `Uninstall` button.
+This is it. We now have the minimal required manifest to install our add-on.
 
 Summary
 ---
 
-Now you know how to write manifests, how to serve and install add-ons.
+Now you have an idea, about the skeleton of the manifest - the most important part of a Stremio add-on. Go ahead to the next step, where we will test it.
 
-In the next section we'll begin adding functionality, namely the catalog.

@@ -1,6 +1,6 @@
 {
   "docs": {
-    "Add-on guide": ["basics", "step1", "step2", "step3", "step4"]
+    "Add-on guide": ["basics", "step1", "step2", "step3", "step4", "step5"]
   },
   "api": {
     "API Documentation": ["api", "manifest", "catalog", "stream", "meta"]

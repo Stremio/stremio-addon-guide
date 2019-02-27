@@ -1,110 +1,44 @@
 ---
 id: step2
-title: Step 2 - The catalog
+title: Step 2 - Testing the add-on
 ---
 
-We covered the basic structure of the add-on manifest. Now it is time to make our add-on useful.
+We covered the basic structure of the add-on manifest. Now it is time to make sure it is working properly.
 
-Let's create a catalog.
+Let's test it.
 
-## Deciding the types
+## Serving
 
-Our first thing to consider, when creating an add-on catalog is to choose what types of media will be provided.
+> **Note for serving Stremio add-ons**
+>
+> Every add-on must provide **CORS** headers for it's resources. Stremio can **not** make use of add-on that does not support CORS.
 
-The type determines the way the content is presented and organized within the app.
+For easy serving we'll use the `http-server` node module. You can of course use your favorite HTTP server. Just do not forget to configure it to serve CORS headers.
 
-`movie` - Presents a single movie. This type doesn't provide any `video` objects. The sources are directly linked to the meta item.
-
-`series` - Used for TV shows and like. The videos are organized in seasons.
-
-`channel` - Channel of videos. It's like series, but the videos are listed in single list.
-
-`tv` - Used for live TV. Similar to movie, but the sources are expected to be live stream without duration.
-
-We can choose one or more types. For this basic example we will use only the movie type.
-
-## Update the manifest
-
-As we are adding more features to our add-on we must update the manifest so Stremio will be able to recognize and use these features.
-
-We need to do several changes.
-
- * Add `catalog` to the resources array
- * Add `catalogs` array with description of our catalog
- * Add `movie` to the types array
-
-So now our manifest should look like this:
-
-```json
-{
-    "id": "my.first.stremio.add-on",
-    "version": "1.0.0",
-    "name": "Hello, World",
-    "description" : "My first Stremio add-on",
-    "logo": "https://www.stremio.com/website/stremio-logo-small.png",
-    "resources": ["catalog"],
-    "types": ["movie"],
-    "catalogs": [
-        {"id": "movieCatalog", "type": "movie", "name": "Hello, Movies"}
-    ]
-}
+```sh
+npm -g install http-server
+http-server --cors -c-1
 ```
 
-The `catalogs` array describes our addon's catalogs. Every catalog must have `id` that is unique for the add-on, `type` that matches one of the types defined in the manifest and a human-readable `name`.
+By default `http-server` serves content on port 8080. It should be printed in your console window, the moment you run it.
 
-Now Stremio can search our add-on for a movie catalog.
+The `-c-1` argument disables the HTTP cache headers. This will be helpful during the development phase of our add-on. The cache is useful in production, where your add-on will be stressed by huge amount of requests.
 
-## Populate the catalog
+You can leave this server running during the next steps, so your changes will be immediately available.
 
-Stremio catalogs are structured like arrays of so called `meta preview`. It is preview because it contains only the minimal portion of information, required for our catalog to be rendered.
+Our add-on's manifest is located at `http://127.0.0.1:8080/manifest.json`.
 
-First inside the add-on directory we will create directory tree, starting with with our resource name - catalog. Inside we place a directory for each type we support. In our case this is only a movie directory. There we place our catalog file.
+## Install the add-on
 
-<!--DOCUSAURUS_CODE_TABS-->
-<!--bash-->
-```bash
-mkdir -p catalog/movie
-```
-<!--cmd-->
-```batch
-mkdir catalog\movie
-```
-<!--END_DOCUSAURUS_CODE_TABS-->
+Now let's install our new add-on. Go to Stremio. Open the add-ons configuration, either by clicking on the puzzle icon in the upper right corner or you can open it from the `Settings`. Now you can copy the add-on URL from here and paste it in the field labeled `Add-on Repository URL`. You should be prompted with the installation dialog. Just press `Install` and your add-on will appear in the `My add-ons` section.
 
-The name if the catalog's file must match the catalog `id`, that we defined in the manifest.
+You can also see in the `http-server`'s output the request to our manifest. In fact there will be logged any request from Stremio to our add-on. No matter what kind of server or framework you use, it's advised to check your logs regularly. This will help you easily identify possible mistakes.
 
-This is our desired file structure:
-
-    my-stremio-addon
-    +-- manifest.json
-    +-- catalog
-        +-- movie
-            +-- movieCatalog.json
-
-We will add two movies in our catalog. The contents of the file should look like this:
-
-```json
-{
-    "metas": [
-        { "type": "movie", "id": "tt0032138", "name": "The Wizard of Oz", "poster": "https://images.metahub.space/poster/medium/tt0032138/img", "genres": ["Adventure", "Family", "Fantasy", "Musical"] },
-        { "type": "movie", "id": "tt0017136", "name": "Metropolis", "poster": "https://images.metahub.space/poster/medium/tt0032138/img", "genres": ["Drama", "Sci-Fi"] }
-    ]
-}
-```
-
-Write this into our `catalog/movie/movieCatalog.json`.
-
-As you can see we have `type`, `id`, `name`, `poster` and `genres` for each item in the catalog.
-
-The `type` should match the catalog type.
-
-You can use any unique string for the `id`. In our case we use the corresponding IMDB ID. Stremio features an system add-on called `Cinemeta`. This add-on provides detailed metadata for any movie or TV show that matches valid IMDB ID.
-
-Srtemio's catalog consists of grid of images, fetched from the `poster` field of every item. It should be valid URL to an image.
-
-The `name` and `genres` are just human-readable descriptive fields. The `genres` are also used as filters in the `Discover` tab.
+You successfully installed your first add-on. It is useless in it's current form so you'd better remove it by clicking on the `Uninstall` button. We will install it again after we add functionality.
 
 Summary
 ---
 
-Now we have working catalog. If you reload the add-on (TODO: This is a hard task as of now), you will see our new catalog is displayed at the bottom of the `Board` and as a filter in the `Discover` tab.
+Testing your add-on is very important step of the development process. You'd better test it regularly so you don't have to search an error after big amount of changes.
+
+In the next step we will begin adding functionality, namely the catalog.

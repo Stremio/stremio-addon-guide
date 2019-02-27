@@ -3,7 +3,7 @@ id: stream
 title: Stream
 ---
 
-Used as a response for [`defineStreamHandler`](../requests/defineStreamHandler.md)
+Used as a response for the `/stream/` resource.
 
 **One of the following must be passed** to point to the stream itself
 

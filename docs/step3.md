@@ -1,34 +1,41 @@
 ---
 id: step3
-title: Step 3 - Simple meta
+title: Step 3 - The catalog
 ---
 
-In most cases Stremio's internal add-on Cinemeta will handle the metadata for us, as long as we use IMDB IDs for our items. Feel free to [skip this step](./step4) if your add-on doesn't need custom meta.
+We covered the basic structure of the add-on manifest. Now it is time to make our add-on useful.
 
-Importance of metadata
----
+Here we will create a catalog. The catalog is a list of meta items grouped by their type. It can be a list of movies, TV shows and more.
 
-Stremio provides the Cinemeta add-on, because of the importance of metadata. If we want superb user experience, we need to provide a high quality data. Cinemeta provides metadata by **IMDB ID**. What if our video is not featured in IMDB. It may be an indie movie or authored by you video, uploaded somewhere. In cases like this we provide a way for your add-on to describe the content it provides.
+Let's create a catalog.
 
-Update the manifest
----
+## Deciding the types
 
-We need to tell Stremio that our add-on provides additional metadata for otherwise unknown content.
+Our first thing to consider, when creating an add-on catalog is to choose what types of media will be provided.
 
-```JavaScript
-"resources": [
-    "catalog",
-    {
-        "name": "meta",
-        "types": ["movie"],
-        "idPrefixes": ["hiwrld_"]
-    }
-]
-```
+The type determines the way the content is presented and organized within the app.
 
-Here we introduce a new way of describing a resource - with an object. This object provides not only the `name` of the resource, but also what `types` of content it will describe and also a prefix filter. We call the prefix filter `idPrefixes`. In it's essence it is an array of prefixes, that Stremio checks against to decide whether to ask our add-on for data or not.
+`movie` - Presents a single movie. This type doesn't provide any `video` objects. The sources are directly linked to the meta item.
 
-Here is how it looks our manifest now:
+`series` - Used for TV shows and like. The videos are organized in seasons.
+
+`channel` - Channel of videos. It's like series, but the videos are listed in single list.
+
+`tv` - Used for live TV. Similar to movie, but the sources are expected to be live stream without duration.
+
+We can choose one or more types. For this basic example we will use only the movie type.
+
+## Update the manifest
+
+As we are adding more features to our add-on we must update the manifest so Stremio will be able to recognize and use these features.
+
+We need to do several changes.
+
+ * Add `catalog` to the resources array
+ * Add `catalogs` array with description of our catalog
+ * Add `movie` to the types array
+
+So now our manifest should look like this:
 
 ```json
 {
@@ -37,14 +44,7 @@ Here is how it looks our manifest now:
     "name": "Hello, World",
     "description" : "My first Stremio add-on",
     "logo": "https://www.stremio.com/website/stremio-logo-small.png",
-    "resources": [
-        "catalog",
-        {
-            "name": "meta",
-            "types": ["movie"],
-            "idPrefixes": ["hiwrld_"]
-        }
-    ],
+    "resources": ["catalog"],
     "types": ["movie"],
     "catalogs": [
         {"id": "movieCatalog", "type": "movie", "name": "Hello, Movies"}
@@ -52,68 +52,70 @@ Here is how it looks our manifest now:
 }
 ```
 
-Apart from the catalog, every other resource in Stremio makes use of IDs and therefore may be filtered by `idPrefixes`.
+The `catalogs` array describes our addon's catalogs. Every catalog must have `id` that is unique for the add-on, `type` that matches one of the types defined in the manifest and a human-readable `name`.
 
-In our case we stated that any ID that starts with `hiwrld_` may be handled by our add-on. In case that our add-on is unable to provide data for this ID, Stremio will ask the next one that matches the requested ID.
+Now Stremio can search our add-on for a movie catalog.
 
-Challenge Stremio
----
+## Populate the catalog
 
-Now we stated that we will handle meta items which ID starts wit `hiwrld_`, but our add-on does not provide an item with such ID. So let's create one.
+Stremio catalogs are structured like arrays of so called `meta preview`. It is preview because it contains only the minimal portion of information, required for our catalog to be rendered.
 
-In the previous step we've created a catalog with two movies. All of them indexed in IMDB. Now we are going to update our catalog with one more meta item, that happens to be a movie, not featured in IMDB - [a jellyfish video](http://jell.yfish.us/).
-
-Let's create a catalog entry for our video. Append the following listing in the `metas` array of our catalog.
-
-```json
-{
-    "id": "hiwrld_jellyfish",
-    "type": "movie",
-    "name": "Jellyfish",
-    "poster": "https://images.unsplash.com/photo-1496108493338-3b30de66f9be",
-    "genres": ["Demo", "Nature"]
-}
-```
-
-Provide metadata
----
-
-If our add-on matches the type and prefix, Stremio will ask it for metadata. The route's location would be `/meta/<type>/<meta id>.json`. As of now, we provide only the `movie` type.
+First inside the add-on directory we will create directory tree, starting with with our resource name - catalog. Inside we place a directory for each type we support. In our case this is only a movie directory. There we place our catalog file.
 
 <!--DOCUSAURUS_CODE_TABS-->
 <!--bash-->
 ```bash
-mkdir -p meta/movie
+mkdir -p catalog/movie
 ```
 <!--cmd-->
 ```batch
-mkdir meta\movie
+mkdir catalog\movie
 ```
 <!--END_DOCUSAURUS_CODE_TABS-->
 
-We have the path ready, so now we can create our `meta/movie/hiwrld_jellyfish.json` containing the video metadata we want to show. As we said in the previous step, the catalog entries are meta preview, so we will build upon it.
+The name if the catalog's file must match the catalog `id`, that we defined in the manifest.
+
+This is our desired file structure:
+
+    my-stremio-addon
+    +-- manifest.json
+    +-- catalog
+        +-- movie
+            +-- movieCatalog.json
+
+We will add two movies in our catalog. The contents of the file should look like this:
 
 ```json
 {
-    "meta": {
-        "id": "hiwrld_jellyfish",
-        "type": "movie",
-        "name": "Jellyfish",
-        "poster": "https://images.unsplash.com/photo-1496108493338-3b30de66f9be",
-        "genres": ["Demo", "Nature"],
-        "description": "A .mkv video clip useful for testing the network streaming and playback performance of media streamers & HTPCs.",
-        "cast": ["Some random jellyfishes"],
-        "director": ["ScottAllyn"],
-        "logo": "https://b.kisscc0.com/20180705/yee/kisscc0-art-forms-in-nature-jellyfish-recapitulation-theor-jellyfish-5b3dcabcb00692.802484341530776252721.png",
-        "background": "https://images.unsplash.com/photo-1461783470466-185038239ee3",
-        "runtime": "30 sec"
-    }
+    "metas": [
+        { "type": "movie", "id": "tt0032138", "name": "The Wizard of Oz", "poster": "https://images.metahub.space/poster/medium/tt0032138/img", "genres": ["Adventure", "Family", "Fantasy", "Musical"] },
+        { "type": "movie", "id": "tt0017136", "name": "Metropolis", "poster": "https://images.metahub.space/poster/medium/tt0032138/img", "genres": ["Drama", "Sci-Fi"] }
+    ]
 }
 ```
 
-As you can see, we have added a lot more data to our meta info. You can check all the fields available in the [API documentation](meta).
+Write this into our `catalog/movie/movieCatalog.json`.
+
+As you can see we have `type`, `id`, `name`, `poster` and `genres` for each item in the catalog.
+
+The `type` should match the catalog type.
+
+You can use any unique string for the `id`. In our case we use the corresponding IMDB ID. Stremio features an system add-on called `Cinemeta`. This add-on provides detailed metadata for any movie or TV show that matches valid IMDB ID.
+
+Srtemio's catalog consists of grid of images, fetched from the `poster` field of every item. It should be valid URL to an image.
+
+The `name` and `genres` are just human-readable descriptive fields. The `genres` are also used as filters in the `Discover` tab.
+
+See it in action
+---
+
+Now go back to step 2 and install our add-on again. If you keep the `http-server` running you can skip to the installation part.
+
+When you navigate Stremio to the **Board** you will see, that our catalog is listed at the very bottom. The catalogs in the board are listed in the order of the installation of add-ons.
 
 Summary
 ---
 
-If you check our add-on now, you'll notice the new jellyfish movie, with pretty pictures and nice description. In the next step we will provide some streams so you can watch the movies.
+Adding features in Stremio's add-ons involves updating the manifest by describing the feature. Everything else is structured data. 
+
+In the next step we will dive into the meta description objects.
