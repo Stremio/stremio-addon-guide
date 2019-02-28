@@ -5,26 +5,7 @@ title: Intro
 
 The purpose of this guide is to teach you how Stremio add-ons work and how to build one yourself. This will allow you to create contents for your favorite media center.
 
-## Kind of TODO (To be deleted in the final version)
-
- * Guide introduction
-
- * What are the Stremio add-ons?
-
- * How do they work?
-
- * What are the required technologies?
-
- ### Steps in the guide
-
- 1. step - Create Manifest
-
- 1. step - Basic catalog
-
- 1. step - Simple Meta
-
- 1. step - Several sources
-
+Although this guide is structured in steps for gradual add-on building, you can also jump to certain step just for reference, when you are building your own add-on.
 
 ## Who is this guide for
 
