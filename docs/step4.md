@@ -5,7 +5,7 @@ title: Step 4 - Simple meta
 
 We call meta a single catalog entry. In our case this will be a movie. The meta provides information for the user. Some of the most notable details are, for example, the title of the movie, it's director and cast, poster, logo and so on. Here we will describe one example movie to give you an idea of how this works.
 
-In most cases Stremio's internal add-on Cinemeta will handle the metadata for us, as long as we use IMDB IDs for our items. Feel free to [skip this step](./step4) if your add-on doesn't need custom meta.
+In most cases Stremio's internal add-on Cinemeta will handle the metadata for us, as long as we use IMDB IDs for our items. Feel free to [skip this step](./step5) if your add-on doesn't need custom meta.
 
 Importance of metadata
 ---
@@ -115,7 +115,7 @@ We have the path ready, so now we can create our `meta/movie/hiwrld_jellyfish.js
 }
 ```
 
-As you can see, we have added a lot more data to our meta info. You can check all the fields available in the [API documentation](meta).
+As you can see, we have added a lot more data to our meta info. You can check all the fields available in the [API documentation](https://github.com/Stremio/stremio-addon-sdk/blob/v1.0-builder/docs/api/responses/meta.md).
 
 Test the meta
 ---
