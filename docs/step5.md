@@ -81,5 +81,5 @@ Finally we will add several streams for our jellyfish video into `stream/movie/h
 Let's watch videos
 ---
 
-Now we have streams defined. We can again reinstall our add-on. Then the streams will displayed to the right of our movie description.
+Now we have streams defined. We can again reinstall our add-on. Then the streams will be displayed to the right of our movie description.
 
