@@ -28,7 +28,6 @@ const siteConfig = {
   headerLinks: [
     {doc: 'index', label: 'Home'},
     {doc: 'basics', label: 'Guide'},
-    {doc: 'api', label: 'API'},
   ],
 
   // If you have users set above, you add it here:
@@ -70,6 +69,7 @@ const siteConfig = {
 
   // Add custom scripts here that would be placed in <script> tags.
   scripts: [],
+  stylesheets: ['/css/defaultHighlight.min.css'],
 
   // On page navigation for the current documentation page.
   onPageNav: 'separate',
