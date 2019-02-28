@@ -35,6 +35,8 @@ The `logo` is displayed next to your add-on name and description. It should be U
 
 The `resources` and `types` are arrays of features that your add-on supports. We will take a closer look into it latter on.
 
+> You can also take a look at the [complete manifest reference](https://github.com/Stremio/stremio-addon-sdk/blob/v1.0-builder/docs/api/responses/manifest.md).
+
 Bootstrap the add-on
 ---
 

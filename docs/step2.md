@@ -36,6 +36,8 @@ You can also see in the `http-server`'s output the request to our manifest. In f
 
 You successfully installed your first add-on. It is useless in it's current form so you'd better remove it by clicking on the `Uninstall` button. We will install it again after we add functionality.
 
+> Note that reinstalling the add-on by clicking `Uninstall` followed by clicking `Install` does **not** reload the manifest, therefore your changes **will not be applied**. You must install it by typing/pasting the URL to your add-on's manifest in the box labeled "Add-on Repository URL".
+
 Summary
 ---
 
