@@ -45,9 +45,16 @@ Populate the catalog
 
 First we need to create a directory for our `series` catalog
 
+<!--DOCUSAURUS_CODE_TABS-->
+<!--bash-->
 ```sh
 mkdir catalog/series
 ```
+<!--cmd-->
+```batch
+mkdir catalog\series
+```
+<!--END_DOCUSAURUS_CODE_TABS-->
 
 Now we will create the series catalog `catalog/series/seriesCatalog.json`:
 
@@ -71,9 +78,16 @@ Now is the time to provide meta. We will leave the `Cinemeta` add-on to take car
 
 For the second show we will provide our meta.
 
+<!--DOCUSAURUS_CODE_TABS-->
+<!--bash-->
 ```sh
 mkdir meta/series
 ```
+<!--cmd-->
+```batch
+mkdir meta\series
+```
+<!--END_DOCUSAURUS_CODE_TABS-->
 
 The contents of our meta item is `meta/series/hiwrld_tt0147753.json`:
 
@@ -117,9 +131,16 @@ Add streams
 
 Again we need to create a directory for our `series` streams:
 
+<!--DOCUSAURUS_CODE_TABS-->
+<!--bash-->
 ```sh
 mkdir stream/series
 ```
+<!--cmd-->
+```batch
+mkdir stream\series
+```
+<!--END_DOCUSAURUS_CODE_TABS-->
 
 Now let's provide data for the first stream `stream/series/hiwrld_tt0147753:1:1.json`:
 
