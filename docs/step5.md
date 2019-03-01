@@ -85,3 +85,4 @@ Let's watch videos
 
 Now we have streams defined. We can again reinstall our add-on. Then the streams will be displayed to the right of our movie description.
 
+![Our streams](img/streams.png)

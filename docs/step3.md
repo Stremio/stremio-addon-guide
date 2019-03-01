@@ -113,6 +113,8 @@ Now go back to step 2 and install our add-on again. If you keep the `http-server
 
 When you navigate Stremio to the **Board** you will see, that our catalog is listed at the very bottom. The catalogs in the board are listed in the order of the installation of add-ons.
 
+![Basic catalog](img/catalog.png)
+
 Summary
 ---
 

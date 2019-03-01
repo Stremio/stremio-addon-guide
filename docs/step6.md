@@ -100,7 +100,7 @@ The contents of our meta item is `meta/series/hiwrld_tt0147753.json`:
             "description": "From his secret laboratory, Captain Z-Ro and his associates use their time machine, the ZX-99, to learn from the past and plan for the future.",
             "releaseInfo": "1955-1956",
             "logo": "https://fanart.tv/fanart/tv/70358/hdtvlogo/captain-z-ro-530995d5e979d.png",
-            imdbRating: 6.9,
+            "imdbRating": 6.9,
             "poster": "https://www.captain-z-ro.com/images/FLYER-PAGE-1_250.gif",
             "background": "https://www.captain-z-ro.com/images/Captain-Z--R0_500.jpg",
             "genres": ["Sci-Fi", "Children", "Educational"],
@@ -125,6 +125,8 @@ At this point we have provided enough data to be able to test the result.
 Reinstall our add-on and see if our new catalog for series is present at the bottom of Stremio's board.
 
 There you should see a section called "Series - Hello, TV Shows" containing the two shows from our catalog. If you open any of them, a detailed metadata should be revealed, with the episodes listed on the right side.
+
+![The series catalog](img/catalog-series.png)
 
 Add streams
 ---
