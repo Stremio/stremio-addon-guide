@@ -126,7 +126,7 @@ Reinstall our add-on and see if our new catalog for series is present at the bot
 
 There you should see a section called "Series - Hello, TV Shows" containing the two shows from our catalog. If you open any of them, a detailed metadata should be revealed, with the episodes listed on the right side.
 
-![The series catalog](img/catalog-series.png)
+![The series catalog](/img/catalog-series.png)
 
 Add streams
 ---

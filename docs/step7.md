@@ -93,7 +93,7 @@ copy catalog\movie\movieCatalog.json catalog\movie\movieCatalog\search=hello.jso
 
 You can try searching for "hello" (There is no need to reinstall the add-on as long as you do not change the manifest). In the web server's log there is no error now. You can see that the last row of search results consists of our movie catalog.
 
-![Search results](img/search.png)
+![Search results](/img/search.png)
 
 Genre filters
 ---
@@ -202,7 +202,7 @@ If you then open our movie catalog, inside the Discover tab in Stremio, you will
 ### Handle empty catalogs
 We have stated that this catalog provides a filter for one more genre - the "Demo" genre, but we haven't made a filtered catalog for this genre. It you try to use that filter you will get an error:
 
-![Error loading catalog](img/genre_error.png)
+![Error loading catalog](/img/genre_error.png)
 
 > **Note**
 >
