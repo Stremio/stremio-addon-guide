@@ -46,7 +46,7 @@ mkdir stream\movie
 
 We will begin with "The Wizard of Oz". It's ID is `tt0032138`. So our stream will be in file `stream/movie/tt0032138.json`.
 
-The video object for this particular video features torrent info hash:
+The stream object for this particular video features torrent info hash:
 
 ```json
 {
@@ -77,6 +77,8 @@ Finally we will add several streams for our jellyfish video into `stream/movie/h
     ]
 }
 ```
+
+> When your add-on is unable to provide streams for particular video, you have to return an empty `streams` array. Otherwise and error is shown to the user.
 
 > As you can see the stream object can point to variety of streams. The complete reference is [located here](https://github.com/Stremio/stremio-addon-sdk/blob/master/docs/api/responses/stream.md).
 
