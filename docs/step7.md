@@ -221,11 +221,11 @@ Put this in `catalog/movie/movieCatalog/genre=Demo.json` so you'll handle the em
 Pagination
 ---
 
-When you have a large amount of items in your catalog, it's better to split it in several smaller catalogs. Stremio will fetch them sequentially when the user scrolls past the last result.
+When you have a large amount of items in your catalog, you have to split it in several smaller catalogs. Stremio will fetch them sequentially when the user scrolls past the last result.
 
-Every catalog must be at maximum of 100 items. When the user scrolls past the current catalog a request will be made for more data.
+Every page  must be at maximum of 100 items. If you have more then 100 items in your catalog, you must split them into pages. When the user scrolls past the last item in the page, a request will be made for more data.
 
-For example, let's say that our catalog has 75 items in it. When the user scrolls past these 75 items, Stremio wiil ask for the next batch:
+For example, let's say that our catalog has more than 100 items in it. When the user scrolls past these 100-th item, Stremio will ask for the next batch:
 
 ```
 GET /catalog/movie/movieCatalog.json
@@ -234,13 +234,13 @@ GET /catalog/movie/movieCatalog.json
 And then
 
 ```
-GET /catalog/movie/movieCatalog/skip=75.json
+GET /catalog/movie/movieCatalog/skip=100.json
 ```
 
-If here we return 40 more items, the next request will be:
+The next request will be:
 
 ```
-GET /catalog/movie/movieCatalog/skip=115.json
+GET /catalog/movie/movieCatalog/skip=200.json
 ```
 
 This will continue until we return an empty catalog:
