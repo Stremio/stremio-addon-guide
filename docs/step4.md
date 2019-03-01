@@ -79,6 +79,24 @@ Let's create a catalog entry for our video. Append the following listing in the 
 }
 ```
 
+Our catalog should look like this now:
+
+```json
+{
+    "metas": [
+        { "type": "movie", "id": "tt0032138", "name": "The Wizard of Oz", "poster": "https://images.metahub.space/poster/medium/tt0032138/img", "genres": ["Adventure", "Family", "Fantasy", "Musical"] },
+        { "type": "movie", "id": "tt0017136", "name": "Metropolis", "poster": "https://images.metahub.space/poster/medium/tt0017136/img", "genres": ["Drama", "Sci-Fi"] },
+        {
+            "id": "hiwrld_jellyfish",
+            "type": "movie",
+            "name": "Jellyfish",
+            "poster": "https://images.unsplash.com/photo-1496108493338-3b30de66f9be",
+            "genres": ["Demo", "Nature"]
+        }
+    ]
+}
+```
+
 Provide metadata
 ---
 
@@ -115,7 +133,7 @@ We have the path ready, so now we can create our `meta/movie/hiwrld_jellyfish.js
 }
 ```
 
-As you can see, we have added a lot more data to our meta info. You can check all the fields available in the [API documentation](https://github.com/Stremio/stremio-addon-sdk/blob/v1.0-builder/docs/api/responses/meta.md).
+As you can see, we have added a lot more data to our meta info. You can check all the fields available in the [API documentation](https://github.com/Stremio/stremio-addon-sdk/blob/master/docs/api/responses/meta.md).
 
 Test the meta
 ---

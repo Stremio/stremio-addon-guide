@@ -115,7 +115,7 @@ The contents of our meta item is `meta/series/hiwrld_tt0147753.json`:
 
 Just like the movie's meta, here we build upon the meta preview, returned by the catalog.
 
-Unlike the movie meta, here we have a videos array, that provides video objects with information about every episode. You can learn more about the video objects in the [API documentation](https://github.com/Stremio/stremio-addon-sdk/blob/v1.0-builder/docs/api/responses/meta.md#video-object).
+Unlike the movie meta, here we have a videos array, that provides video objects with information about every episode. You can learn more about the video objects in the [API documentation](https://github.com/Stremio/stremio-addon-sdk/blob/master/docs/api/responses/meta.md#video-object).
 
 Checking the progress
 ---

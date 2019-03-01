@@ -78,7 +78,7 @@ Finally we will add several streams for our jellyfish video into `stream/movie/h
 }
 ```
 
-> As you can see the stream object can point to variety of streams. The complete reference is [located here](https://github.com/Stremio/stremio-addon-sdk/blob/v1.0-builder/docs/api/responses/stream.md).
+> As you can see the stream object can point to variety of streams. The complete reference is [located here](https://github.com/Stremio/stremio-addon-sdk/blob/master/docs/api/responses/stream.md).
 
 Let's watch videos
 ---
