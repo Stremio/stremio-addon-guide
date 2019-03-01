@@ -69,7 +69,6 @@ const siteConfig = {
 
   // Add custom scripts here that would be placed in <script> tags.
   scripts: [],
-  stylesheets: ['/css/defaultHighlight.min.css'],
 
   // On page navigation for the current documentation page.
   onPageNav: 'separate',
