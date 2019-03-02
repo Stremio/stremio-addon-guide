@@ -3,32 +3,33 @@ id: basics
 title: The basics
 ---
 
-The add-ons in Stremio are the most fundamental part of the app. They provide the whole contents the users enjoy.
+The add-ons in Stremio are the most fundamental part of the app. They provide the content that the users enjoy.
 
-An add-on in Stremio, unlike other similar apps, in most cases, does not run on client's computer. It is rather hosted on the Internet, just like any website. This has ease of use and security benefits for the end user.
+An add-on in Stremio, unlike other similar apps, doesn't generally run on client's computer (however, there are exceptions). Instead, it is hosted on the Internet just like any website. This brings ease of use and security benefits to the end user.
 
-If add-on is served via HTTP, **CORS** headers must be present.
+If an add-on is served via HTTP, **CORS** headers must be present.
 
-The Add-on philosophy
+The add-on philosophy
 ---
 
- * Add-ons are not meant to compete with VOD services; they’re meant to *integrate* existing VOD services into Stremio
- * Add-ons are not meant to be used in the same way as YouTube is; You don’t upload your content to a Stremio add-on
+ * Add-ons are not meant to compete with VOD services; they’re meant to *integrate* existing VOD services into Stremio.
+ * Add-ons are not meant to be used in the same way as YouTube; you don’t upload your content to a Stremio add-on.
 
 
 Manifest
 ---
 
-The add-on must implement the add-on API. The most important part is the **manifest**. 
+The add-on must adhere to the add-on API. The most important part is the **manifest**. 
 
-The add-on manifest is JSON object describing the add-on's capabilities.
+The add-on manifest is a JSON object describing the add-on's capabilities.
+
 
 Media structure
 ---
 
-Every add-on provides one or more resources for media content. The resources are organized in tree like structure. In the root of this tree we have **catalogs**. The catalogs provide media collection of different **types**. For each type we have **meta items**. These items contain **videos**. Finally for every video we have one or more **streams**. There is an option where the meta item does not contain videos. In this case it provides directly streams.
+Every add-on provides one or more resources for media content. The resources are organized in a tree-like structure. In the root of this tree, we have **catalogs**. The catalogs provide media collections of different **types**. For each type there are **meta items**. These items contain **videos**. Finally, for every video there is one or more **streams**. There is an option where the meta item does not contain videos. In this case it provides streams directly.
 
-The complete tree looks like that:
+The complete tree should look like that:
 
     Catalog
     +-- Type
@@ -39,19 +40,19 @@ The complete tree looks like that:
 Resources
 ---
 
-For Stremio to be able to display any data, it must first find it. For this purpose in every add-on's manifest, there are declared one or more resources.
+For Stremio to be able to display any data, it must first find it. For this purpose in every add-on's manifest, one or more resources must be declared.
 
-The resources are basically a segmented way to build the content tree, we talked before. Every resource is accessed at certain endpoint, where your add-on should respond with proper data.
+The resources are basically a segmented way to build the content tree we mentioned. Every resource is accessed at a certain endpoint where your add-on should respond with proper data.
 
 | Resource      | Endpoint         | Description                                                                                                                                   |
 | --------      | --------         | -----------                                                                                                                                   |
 | **manifest**  | `/manifest.json` | The add-on description and capabilities.                                                                                                      |
-| **catalogs**  | `/catalog/`      | Summarized collection of meta items. Catalogs are displayed on the Srtemio's **Board**. You can also browse the catalogs in the **Discover**. |
+| **catalogs**  | `/catalog/`      | Summarized collection of meta items. Catalogs are displayed on the Srtemio **Board**. You can also browse the catalogs in the **Discover**. |
 | **metadata**  | `/meta/`         | Detailed description of meta item. This description is displayed when the user selects an item form the catalog.                              |
-| **streams**   | `/stream/`       | Tells Srtemio how to obtain the media content. It may be torrent info hash, HTTP URL e.t.c.                                                   |
+| **streams**   | `/stream/`       | Tells Srtemio how to obtain the media content. It may be torrent info hash, HTTP URL, etc.                                                   |
 | **subtitles** | `/subtitles/`    | Subtitles resource for the chosen media.                                                                                                      |
 
-All the resources in our add-on can be dynamically generated by a script or just a plain text JSON files laying on your file system. As our goal is to introduce you to the Stremio's way of using add-ons rather than fighting with a framework/language. We will use static files. The file system will be used as a router. This approach can also be used in add-on written in PHP or CGI for example.
+All the resources in an add-on can be dynamically generated by a script or just by plain text JSON files located on your file system. Our goal is to introduce you to the Stremio's way of using add-ons rather than fighting with a framework/language. We will use static files. The file system will be used as a router. This approach can also be used in add-on written in PHP or CGI for example.
 
 In your implementation you are free to use whatever suits your needs.
 
@@ -60,4 +61,4 @@ Summary
 
 At this point you should be familiar with Stremio's media structure, how does add-ons work and their basic endpoints.
 
-Fell free to proceed to the next chapter and start the guide.
+Feel free to proceed to the next chapter and start the guide.
