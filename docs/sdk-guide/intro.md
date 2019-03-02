@@ -21,11 +21,15 @@ To build an add-on using our SDK, you only need:
 
 * Basic programming knowledge (JavaScript)
 * A recent version of NodeJS (which [you can download from their website](https://nodejs.org/en/download/))
-
+* An editor/IDE for JavaScript (we recommend [Visual Studio Code](https://code.visualstudio.com/))
 
 ## Get started
 
-@TODO quick explanations about types of addons
+The `addon-bootstrap` utility will ask you a few questions about your add-on name, description and what it will provide. Don't worry - you can always change this later!
+
+If you only intend to provide catalogs (content in Board/Discover), then you only need the `catalog` resource. Similarly, if you only want to provide streams, just select the `stream` resource.
+
+For more details, read [the Resources explanation](/docs/api/README.md) and [Content types](/docs/api/responses/content.types.md).
 
 ```bash
 npm install --global stremio-addon-sdk # requires "sudo" if you're on Linux
