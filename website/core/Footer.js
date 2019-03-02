@@ -37,30 +37,29 @@ class Footer extends React.Component {
           </a>
           <div>
             <h5>Docs</h5>
-            <a href={this.pageUrl('#', this.props.language)}>
-              Getting Started (or other categories)
+            <a href={this.docUrl('basics')}>
+              Guide
             </a>
-            <a href={this.docUrl('doc2.html', this.props.language)}>
-              Guides (or other categories)
-            </a>
-            <a href={this.docUrl('doc3.html', this.props.language)}>
-              API Reference (or other categories)
+            <a href="https://github.com/Stremio/stremio-addon-sdk/tree/master/docs/api">
+              API Reference
             </a>
           </div>
           <div>
             <h5>Community</h5>
-            <a href={this.pageUrl('users.html', this.props.language)}>
-              User Showcase
-            </a>
             <a
-              href="http://stackoverflow.com/questions/tagged/"
+              href="https://www.reddit.com/r/stremio/"
               target="_blank"
               rel="noreferrer noopener">
-              Stack Overflow
+              Reddit
             </a>
-            <a href="https://discordapp.com/">Project Chat</a>
             <a
-              href="https://twitter.com/"
+              href="https://www.facebook.com/stremio/"
+              target="_blank"
+              rel="noreferrer noopener">
+              Facebook
+            </a>
+            <a
+              href="https://twitter.com/stremio"
               target="_blank"
               rel="noreferrer noopener">
               Twitter
@@ -68,18 +67,9 @@ class Footer extends React.Component {
           </div>
           <div>
             <h5>More</h5>
-            <a href={`${this.props.config.baseUrl}blog`}>Blog</a>
-            <a href="https://github.com/">GitHub</a>
-            <a
-              className="github-button"
-              href={this.props.config.repoUrl}
-              data-icon="octicon-star"
-              data-count-href="/facebook/docusaurus/stargazers"
-              data-show-count="true"
-              data-count-aria-label="# stargazers on GitHub"
-              aria-label="Star this project on GitHub">
-              Star
-            </a>
+            <a href="https://www.stremio.com/">Official Website</a>
+            <a href="https://blog.stremio.com/">Blog</a>
+            <a href="https://github.com/Stremio/">GitHub</a>
           </div>
         </section>
 
