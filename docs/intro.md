@@ -17,5 +17,5 @@ You can develop a Stremio add-on in any language you wish or even no programming
 
 ## Where to start
 
-You can [begin the guide right now](./basics).
+You can [begin the guide right now](/basics).
 

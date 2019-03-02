@@ -3,8 +3,6 @@ id: step7
 title: Step 7 - Dynamic content
 ---
 
-TODO: this chapter
-
 There are cases where you will want to do some server side work so your add-on can provide better user experience. For example there is a way to paginate the catalogs. You can also provide search and filtering by genre, to name a few.
 
 In fact here will take a look exactly at these scenarios.
@@ -29,6 +27,8 @@ In order to enable searching capability in our add-on, we are going to yet again
 This engages the search capabilities in our catalog. Whenever the user enters a query in the Stremio's search box, our add-on will be queried for results.
 
 The `isRequired` parameter indicates that searching is optional. If set to `true` the catalog will not be available in the Board and Discover tabs.
+
+All of the `extra` catalog options are described in the [manifest reference](https://github.com/Stremio/stremio-addon-sdk/blob/master/docs/api/responses/manifest.md#extra-properties).
 
 ### Update the manifest
 
@@ -94,6 +94,8 @@ copy catalog\movie\movieCatalog.json catalog\movie\movieCatalog\search=hello.jso
 You can try searching for "hello" (There is no need to reinstall the add-on as long as you do not change the manifest). In the web server's log there is no error now. You can see that the last row of search results consists of our movie catalog.
 
 ![Search results](/img/search.png)
+
+Of course, this is a static example, but in a real add-on, you'd want to handle this route dynamically and perform a full text search on every search request.
 
 Genre filters
 ---
