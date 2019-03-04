@@ -53,7 +53,7 @@ npm start -- --launch
 
 There are also video tutorials on our [YouTube channel](https://www.youtube.com/channel/UC_OgO2Ag911Y49ZeArzy1_w).
 
-If you want to learn how to build an add-on in any programming language, check out our [universal guide](/intro).
+If you want to learn how to build an add-on in any programming language, check out our [universal guide](/stremio-addon-guide/intro).
 
 There's also quick examples (with step-by-step tutorials) for Python, Ruby, NodeJS Express and others [here](https://github.com/Stremio/stremio-addon-sdk/blob/master/docs/examples/README.md).
 

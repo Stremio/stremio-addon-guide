@@ -30,7 +30,7 @@ Your add-on's manifest is located at `http://127.0.0.1:8080/manifest.json`.
 
 Now let's install your new add-on. Go to Stremio. Open the add-ons configuration either by clicking on the puzzle icon in the upper right corner or by opening it from `Settings`. Now you can copy the add-on URL from here and paste it in the field labeled `Add-on Repository URL`. You should be prompted with the installation dialog. Just press `Install` and your add-on will appear in the `My add-ons` section.
 
-![Installed add-on](/img/install.png)
+![Installed add-on](/stremio-addon-guide/img/install.png)
 
 You can also see the request for your manifest in the `http-server`'s output. In fact, this is where every request to from Stremio to the add-on will be logged. No matter what kind of server or framework you use, it's advised to check your logs regularly. This will help you easily identify possible errors.
 
