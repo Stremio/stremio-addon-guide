@@ -11,8 +11,8 @@
 const siteConfig = {
   title: 'Stremio add-ons guide', // Title for your website.
   tagline: 'The full guide on how to make a stremio add-on',
-  url: '', // Your website URL
-  baseUrl: '/', // Base URL for your project */
+  url: 'https://stremio.github.io', // Your website URL
+  baseUrl: '/stremio-addon-guide/', // Base URL for your project */
   // For github.io type URLs, you would set the url and baseUrl like:
   //   url: 'https://facebook.github.io',
   //   baseUrl: '/test-site/',
