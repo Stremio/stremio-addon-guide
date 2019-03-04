@@ -1,0 +1,229 @@
+<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><title>Step 7 - Dynamic content · Stremio add-ons guide</title><meta name="viewport" content="width=device-width"/><meta name="generator" content="Docusaurus"/><meta name="description" content="&lt;p&gt;There are cases where you will want to do some server side work so your add-on can provide better user experience. For example there is a way to paginate the catalogs. You can also provide search and filtering by genre, to name a few.&lt;/p&gt;
+"/><meta name="docsearch:language" content="en"/><meta property="og:title" content="Step 7 - Dynamic content · Stremio add-ons guide"/><meta property="og:type" content="website"/><meta property="og:url" content="https://stremio.github.io/stremio-addon-guide/index.html"/><meta property="og:description" content="&lt;p&gt;There are cases where you will want to do some server side work so your add-on can provide better user experience. For example there is a way to paginate the catalogs. You can also provide search and filtering by genre, to name a few.&lt;/p&gt;
+"/><meta property="og:image" content="https://stremio.github.io/stremio-addon-guide/img/favicon.png"/><meta name="twitter:card" content="summary"/><meta name="twitter:image" content="https://stremio.github.io/stremio-addon-guide/img/favicon.png"/><link rel="shortcut icon" href="/stremio-addon-guide/img/favicon.png"/><link rel="stylesheet" href="css/defaultHighlight.min.css"/><link rel="stylesheet" href="/stremio-addon-guide/css/main.css"/><script src="/stremio-addon-guide/js/codetabs.js"></script></head><body class="sideNavVisible separateOnPageNav"><div class="fixedHeaderContainer"><div class="headerWrapper wrapper"><header><a href="/stremio-addon-guide/"><img class="logo" src="/stremio-addon-guide/img/stremio.svg" alt="Stremio add-ons guide"/><h2 class="headerTitleWithLogo">Stremio add-ons guide</h2></a><div class="navigationWrapper navigationSlider"><nav class="slidingNav"><ul class="nav-site nav-site-internal"><li class=""><a href="/stremio-addon-guide/index" target="_self">Home</a></li><li class="siteNavGroupActive"><a href="/stremio-addon-guide/basics" target="_self">Guide</a></li></ul></nav></div></header></div></div><div class="navPusher"><div class="docMainWrapper wrapper"><div class="container docsNavContainer" id="docsNav"><nav class="toc"><div class="toggleNav"><section class="navWrapper wrapper"><div class="navBreadcrumb wrapper"><div class="navToggle" id="navToggler"><i></i></div><h2><i>›</i><span>Add-on guide</span></h2><div class="tocToggler" id="tocToggler"><i class="icon-toc"></i></div></div><div class="navGroups"><div class="navGroup"><h3 class="navGroupCategoryTitle">Add-on guide</h3><ul class=""><li class="navListItem"><a class="navItem" href="/stremio-addon-guide/basics">The basics</a></li><li class="navListItem"><a class="navItem" href="/stremio-addon-guide/step1">Step 1 - The add-on manifest</a></li><li class="navListItem"><a class="navItem" href="/stremio-addon-guide/step2">Step 2 - Testing the add-on</a></li><li class="navListItem"><a class="navItem" href="/stremio-addon-guide/step3">Step 3 - The catalog</a></li><li class="navListItem"><a class="navItem" href="/stremio-addon-guide/step4">Step 4 - Simple meta</a></li><li class="navListItem"><a class="navItem" href="/stremio-addon-guide/step5">Step 5 - Providing streams</a></li><li class="navListItem"><a class="navItem" href="/stremio-addon-guide/step6">Step 6 - Multiple videos</a></li><li class="navListItem navListItemActive"><a class="navItem" href="/stremio-addon-guide/step7">Step 7 - Dynamic content</a></li></ul></div></div></section></div><script>
+            var coll = document.getElementsByClassName('collapsible');
+            var checkActiveCategory = true;
+            for (var i = 0; i < coll.length; i++) {
+              var links = coll[i].nextElementSibling.getElementsByTagName('*');
+              if (checkActiveCategory){
+                for (var j = 0; j < links.length; j++) {
+                  if (links[j].classList.contains('navListItemActive')){
+                    coll[i].nextElementSibling.classList.toggle('hide');
+                    coll[i].childNodes[1].classList.toggle('rotate');
+                    checkActiveCategory = false;
+                    break;
+                  }
+                }
+              }
+
+              coll[i].addEventListener('click', function() {
+                var arrow = this.childNodes[1];
+                arrow.classList.toggle('rotate');
+                var content = this.nextElementSibling;
+                content.classList.toggle('hide');
+              });
+            }
+
+            document.addEventListener('DOMContentLoaded', function() {
+              createToggler('#navToggler', '#docsNav', 'docsSliderActive');
+              createToggler('#tocToggler', 'body', 'tocActive');
+
+              const headings = document.querySelector('.toc-headings');
+              headings && headings.addEventListener('click', function(event) {
+                if (event.target.tagName === 'A') {
+                  document.body.classList.remove('tocActive');
+                }
+              }, false);
+
+              function createToggler(togglerSelector, targetSelector, className) {
+                var toggler = document.querySelector(togglerSelector);
+                var target = document.querySelector(targetSelector);
+
+                if (!toggler) {
+                  return;
+                }
+
+                toggler.onclick = function(event) {
+                  event.preventDefault();
+
+                  target.classList.toggle(className);
+                };
+              }
+            });
+        </script></nav></div><div class="container mainContainer"><div class="wrapper"><div class="post"><header class="postHeader"><h1 class="postHeaderTitle">Step 7 - Dynamic content</h1></header><article><div><span><p>There are cases where you will want to do some server side work so your add-on can provide better user experience. For example there is a way to paginate the catalogs. You can also provide search and filtering by genre, to name a few.</p>
+<p>In fact here will take a look exactly at these scenarios.</p>
+<h2><a class="anchor" aria-hidden="true" id="searching"></a><a href="#searching" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Searching</h2>
+<p>In order to enable searching capability in our add-on, we are going to yet again update it's manifest. We need to add some &quot;extra&quot; configuration into the catalog definition.</p>
+<pre><code class="hljs css language-js"><span class="hljs-string">"catalogs"</span>: [
+    {
+        <span class="hljs-string">"id"</span>: <span class="hljs-string">"movieCatalog"</span>, <span class="hljs-string">"type"</span>: <span class="hljs-string">"movie"</span>, <span class="hljs-string">"name"</span>: <span class="hljs-string">"Hello, Movies"</span>, 
+        <span class="hljs-string">"extra"</span>: [
+            { <span class="hljs-string">"name"</span>: <span class="hljs-string">"search"</span>, <span class="hljs-string">"isRequired"</span>: <span class="hljs-literal">false</span> }
+        ]
+    },
+    {<span class="hljs-string">"id"</span>: <span class="hljs-string">"seriesCatalog"</span>, <span class="hljs-string">"type"</span>: <span class="hljs-string">"series"</span>, <span class="hljs-string">"name"</span>: <span class="hljs-string">"Hello, TV Shows"</span>}
+]
+</code></pre>
+<p>This engages the search capabilities in our catalog. Whenever the user enters a query in the Stremio's search box, our add-on will be queried for results.</p>
+<p>The <code>isRequired</code> parameter indicates that searching is optional. If set to <code>true</code> the catalog will not be available in the Board and Discover tabs.</p>
+<p>All of the <code>extra</code> catalog options are described in the <a href="https://github.com/Stremio/stremio-addon-sdk/blob/master/docs/api/responses/manifest.md#extra-properties">manifest reference</a>.</p>
+<h3><a class="anchor" aria-hidden="true" id="update-the-manifest"></a><a href="#update-the-manifest" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Update the manifest</h3>
+<p>Now our <code>manifest.json</code> should look like this:</p>
+<pre><code class="hljs css language-json">{
+    <span class="hljs-attr">"id"</span>: <span class="hljs-string">"my.first.stremio.add-on"</span>,
+    <span class="hljs-attr">"version"</span>: <span class="hljs-string">"1.0.0"</span>,
+    <span class="hljs-attr">"name"</span>: <span class="hljs-string">"Hello, World"</span>,
+    <span class="hljs-attr">"description"</span> : <span class="hljs-string">"My first Stremio add-on"</span>,
+    <span class="hljs-attr">"logo"</span>: <span class="hljs-string">"https://www.stremio.com/website/stremio-logo-small.png"</span>,
+    <span class="hljs-attr">"resources"</span>: [
+        <span class="hljs-string">"catalog"</span>,
+        {
+            <span class="hljs-attr">"name"</span>: <span class="hljs-string">"meta"</span>,
+            <span class="hljs-attr">"types"</span>: [<span class="hljs-string">"movie"</span>, <span class="hljs-string">"series"</span>],
+            <span class="hljs-attr">"idPrefixes"</span>: [<span class="hljs-string">"hiwrld_"</span>]
+        },
+        <span class="hljs-string">"stream"</span>
+    ],
+    <span class="hljs-attr">"types"</span>: [<span class="hljs-string">"movie"</span>, <span class="hljs-string">"series"</span>],
+    <span class="hljs-attr">"catalogs"</span>: [
+        {
+            <span class="hljs-attr">"id"</span>: <span class="hljs-string">"movieCatalog"</span>, <span class="hljs-attr">"type"</span>: <span class="hljs-string">"movie"</span>, <span class="hljs-attr">"name"</span>: <span class="hljs-string">"Hello, Movies"</span>,
+            <span class="hljs-attr">"extra"</span>: [
+                { <span class="hljs-attr">"name"</span>: <span class="hljs-string">"search"</span>, <span class="hljs-attr">"isRequired"</span>: <span class="hljs-literal">false</span> }
+            ]
+
+        },
+        {<span class="hljs-attr">"id"</span>: <span class="hljs-string">"seriesCatalog"</span>, <span class="hljs-attr">"type"</span>: <span class="hljs-string">"series"</span>, <span class="hljs-attr">"name"</span>: <span class="hljs-string">"Hello, TV Shows"</span>}
+    ]
+}
+</code></pre>
+<h3><a class="anchor" aria-hidden="true" id="try-searching"></a><a href="#try-searching" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Try searching</h3>
+<p>Let's see what will happen. Reinstall our add-on now. Now try searching for &quot;jellyfish&quot;, for example. In the web server logs you will see the following line:</p>
+<pre><code class="hljs"><span class="hljs-string">"<span class="hljs-keyword">GET</span> /catalog/movie/movieCatalog/search=jellyfish.json"</span> Error (<span class="hljs-number">404</span>): <span class="hljs-string">"Not found"</span>
+</code></pre>
+<p>Here we can see how does Stremio queries our catalog for search results. The series are not pulled because we added this capability only to our movie catalog.</p>
+<h3><a class="anchor" aria-hidden="true" id="provide-search-results"></a><a href="#provide-search-results" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Provide search results</h3>
+<p>Let's copy our movie catalog in a file that would match a search query.</p>
+</span></div><div class="tabs"><div class="nav-tabs"><div class="nav-link active" id="23-tab" data-group="group_22" data-tab="tabpanel_23">bash</div><div class="nav-link" id="24-tab" data-group="group_22" data-tab="tabpanel_24">cmd</div></div><div class="tab-content"><div class="tab-pane active" data-group="group_22" tabindex="-1" id="tabpanel_23"><div><span><pre><code class="hljs css language-sh">mkdir catalog/movie/movieCatalog
+cp catalog/movie/movieCatalog.json catalog/movie/movieCatalog/search=hello.json
+</code></pre>
+</span></div></div><div class="tab-pane" data-group="group_22" tabindex="-1" id="tabpanel_24"><div><span><pre><code class="hljs css language-batch">mkdir catalog<span class="hljs-symbol">\m</span>ovie<span class="hljs-symbol">\m</span>ovieCatalog
+copy catalog<span class="hljs-symbol">\m</span>ovie<span class="hljs-symbol">\m</span>ovieCatalog.json catalog<span class="hljs-symbol">\m</span>ovie<span class="hljs-symbol">\m</span>ovieCatalog<span class="hljs-symbol">\s</span>earch=hello.json
+</code></pre>
+</span></div></div></div></div><div><span><p>You can try searching for &quot;hello&quot; (There is no need to reinstall the add-on as long as you do not change the manifest). In the web server's log there is no error now. You can see that the last row of search results consists of our movie catalog.</p>
+<p><img src="/img/search.png" alt="Search results"></p>
+<p>Of course, this is a static example, but in a real add-on, you'd want to handle this route dynamically and perform a full text search on every search request.</p>
+<h2><a class="anchor" aria-hidden="true" id="genre-filters"></a><a href="#genre-filters" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Genre filters</h2>
+<p>The genre filters are very similar to searching. We just need to add one more thing - a list of genres, our add-on is aware of.</p>
+<pre><code class="hljs css language-json">{
+    <span class="hljs-attr">"id"</span>: <span class="hljs-string">"movieCatalog"</span>, <span class="hljs-attr">"type"</span>: <span class="hljs-string">"movie"</span>, <span class="hljs-attr">"name"</span>: <span class="hljs-string">"Hello, Movies"</span>, 
+    <span class="hljs-attr">"extra"</span>: [
+        { <span class="hljs-attr">"name"</span>: <span class="hljs-string">"search"</span>, <span class="hljs-attr">"isRequired"</span>: <span class="hljs-literal">false</span> },
+        { <span class="hljs-attr">"name"</span>: <span class="hljs-string">"genre"</span>, <span class="hljs-attr">"isRequired"</span>: <span class="hljs-literal">false</span> }
+    ],
+    <span class="hljs-attr">"genres"</span> : [<span class="hljs-string">"Adventure"</span>, <span class="hljs-string">"Family"</span>, <span class="hljs-string">"Sci-Fi"</span>, <span class="hljs-string">"Demo"</span>]
+}
+</code></pre>
+<p>We don't list all genres of the content we provide. We list only the ones we can handle.</p>
+<blockquote>
+<p>Note</p>
+<p><code>isRequired</code> must not be set to <code>true</code> on more than one extra paremeter. Otherwise your catalog will be ignored.</p>
+</blockquote>
+<h3><a class="anchor" aria-hidden="true" id="update-the-manifest"></a><a href="#update-the-manifest" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Update the manifest</h3>
+<p>Yet again our manifest requires changes. This is it's new form:</p>
+<pre><code class="hljs css language-json">{
+    <span class="hljs-attr">"id"</span>: <span class="hljs-string">"my.first.stremio.add-on"</span>,
+    <span class="hljs-attr">"version"</span>: <span class="hljs-string">"1.0.0"</span>,
+    <span class="hljs-attr">"name"</span>: <span class="hljs-string">"Hello, World"</span>,
+    <span class="hljs-attr">"description"</span> : <span class="hljs-string">"My first Stremio add-on"</span>,
+    <span class="hljs-attr">"logo"</span>: <span class="hljs-string">"https://www.stremio.com/website/stremio-logo-small.png"</span>,
+    <span class="hljs-attr">"resources"</span>: [
+        <span class="hljs-string">"catalog"</span>,
+        {
+            <span class="hljs-attr">"name"</span>: <span class="hljs-string">"meta"</span>,
+            <span class="hljs-attr">"types"</span>: [<span class="hljs-string">"movie"</span>, <span class="hljs-string">"series"</span>],
+            <span class="hljs-attr">"idPrefixes"</span>: [<span class="hljs-string">"hiwrld_"</span>]
+        },
+        <span class="hljs-string">"stream"</span>
+    ],
+    <span class="hljs-attr">"types"</span>: [<span class="hljs-string">"movie"</span>, <span class="hljs-string">"series"</span>],
+    <span class="hljs-attr">"catalogs"</span>: [
+        {
+            <span class="hljs-attr">"id"</span>: <span class="hljs-string">"movieCatalog"</span>, <span class="hljs-attr">"type"</span>: <span class="hljs-string">"movie"</span>, <span class="hljs-attr">"name"</span>: <span class="hljs-string">"Hello, Movies"</span>,
+            <span class="hljs-attr">"extra"</span>: [
+                { <span class="hljs-attr">"name"</span>: <span class="hljs-string">"search"</span>, <span class="hljs-attr">"isRequired"</span>: <span class="hljs-literal">false</span> },
+                { <span class="hljs-attr">"name"</span>: <span class="hljs-string">"genre"</span>, <span class="hljs-attr">"isRequired"</span>: <span class="hljs-literal">false</span> }
+            ],
+            <span class="hljs-attr">"genres"</span> : [<span class="hljs-string">"Adventure"</span>, <span class="hljs-string">"Family"</span>, <span class="hljs-string">"Sci-Fi"</span>, <span class="hljs-string">"Demo"</span>]
+        },
+        {<span class="hljs-attr">"id"</span>: <span class="hljs-string">"seriesCatalog"</span>, <span class="hljs-attr">"type"</span>: <span class="hljs-string">"series"</span>, <span class="hljs-attr">"name"</span>: <span class="hljs-string">"Hello, TV Shows"</span>}
+    ]
+}
+</code></pre>
+<h3><a class="anchor" aria-hidden="true" id="filter-by-genre"></a><a href="#filter-by-genre" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Filter by genre</h3>
+<p>We will now create smaller catalogs with only the matching meta items.</p>
+<p>Let's create a file called <code>catalog/movie/movieCatalog/genre=Adventure.json</code> and put there an one-item catalog with only &quot;The Wizard of Oz&quot;:</p>
+<pre><code class="hljs css language-json">{
+    <span class="hljs-attr">"metas"</span>: [
+        { <span class="hljs-attr">"type"</span>: <span class="hljs-string">"movie"</span>, <span class="hljs-attr">"id"</span>: <span class="hljs-string">"tt0032138"</span>, <span class="hljs-attr">"name"</span>: <span class="hljs-string">"The Wizard of Oz"</span>, <span class="hljs-attr">"poster"</span>: <span class="hljs-string">"https://images.metahub.space/poster/medium/tt0032138/img"</span>, <span class="hljs-attr">"genres"</span>: [<span class="hljs-string">"Adventure"</span>, <span class="hljs-string">"Family"</span>, <span class="hljs-string">"Fantasy"</span>, <span class="hljs-string">"Musical"</span>] }
+    ]
+}
+</code></pre>
+<p>The next is <code>catalog/movie/movieCatalog/genre=Sci-Fi.json</code> containing &quot;Metropolis&quot;:</p>
+<pre><code class="hljs css language-json">{
+    <span class="hljs-attr">"metas"</span>: [
+        { <span class="hljs-attr">"type"</span>: <span class="hljs-string">"movie"</span>, <span class="hljs-attr">"id"</span>: <span class="hljs-string">"tt0017136"</span>, <span class="hljs-attr">"name"</span>: <span class="hljs-string">"Metropolis"</span>, <span class="hljs-attr">"poster"</span>: <span class="hljs-string">"https://images.metahub.space/poster/medium/tt0017136/img"</span>, <span class="hljs-attr">"genres"</span>: [<span class="hljs-string">"Drama"</span>, <span class="hljs-string">"Sci-Fi"</span>] }
+    ]
+}
+</code></pre>
+<p>We will add &quot;The Wizard of Oz&quot; and our &quot;Jellyfish&quot; into the <code>catalog/movie/movieCatalog/genre=Family.json</code>. The &quot;Jellyfish&quot; video doesn't match that genre, but it will be shown if it is in the catalog:</p>
+<pre><code class="hljs css language-json">{
+    <span class="hljs-attr">"metas"</span>: [
+        { <span class="hljs-attr">"type"</span>: <span class="hljs-string">"movie"</span>, <span class="hljs-attr">"id"</span>: <span class="hljs-string">"tt0032138"</span>, <span class="hljs-attr">"name"</span>: <span class="hljs-string">"The Wizard of Oz"</span>, <span class="hljs-attr">"poster"</span>: <span class="hljs-string">"https://images.metahub.space/poster/medium/tt0032138/img"</span>, <span class="hljs-attr">"genres"</span>: [<span class="hljs-string">"Adventure"</span>, <span class="hljs-string">"Family"</span>, <span class="hljs-string">"Fantasy"</span>, <span class="hljs-string">"Musical"</span>] },
+        {
+            <span class="hljs-attr">"id"</span>: <span class="hljs-string">"hiwrld_jellyfish"</span>,
+            <span class="hljs-attr">"type"</span>: <span class="hljs-string">"movie"</span>,
+            <span class="hljs-attr">"name"</span>: <span class="hljs-string">"Jellyfish"</span>,
+            <span class="hljs-attr">"poster"</span>: <span class="hljs-string">"https://images.unsplash.com/photo-1496108493338-3b30de66f9be"</span>,
+            <span class="hljs-attr">"genres"</span>: [<span class="hljs-string">"Demo"</span>, <span class="hljs-string">"Nature"</span>]
+        }
+    ]
+}
+</code></pre>
+<h3><a class="anchor" aria-hidden="true" id="check-out-the-result"></a><a href="#check-out-the-result" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Check out the result</h3>
+<p>As we did changes to the manifest, the add-on have to be reinstalled again.</p>
+<p>If you then open our movie catalog, inside the Discover tab in Stremio, you will see the list of our genres.</p>
+<h3><a class="anchor" aria-hidden="true" id="handle-empty-catalogs"></a><a href="#handle-empty-catalogs" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Handle empty catalogs</h3>
+<p>We have stated that this catalog provides a filter for one more genre - the &quot;Demo&quot; genre, but we haven't made a filtered catalog for this genre. It you try to use that filter you will get an error:</p>
+<p><img src="/img/genre_error.png" alt="Error loading catalog"></p>
+<blockquote>
+<p><strong>Note</strong></p>
+<p>When you define genre filter, your add-on must provide a valid response. Otherwise an error message will appear.</p>
+</blockquote>
+<p>Let's suppose that we have defined that genre as supported, but we don't have items to display yet? In order to avid this error, you must return a empty catalog like this:</p>
+<pre><code class="hljs css language-json">{
+    <span class="hljs-attr">"metas"</span>: []
+}
+</code></pre>
+<p>Put this in <code>catalog/movie/movieCatalog/genre=Demo.json</code> so you'll handle the empty catalog case.</p>
+<h2><a class="anchor" aria-hidden="true" id="pagination"></a><a href="#pagination" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Pagination</h2>
+<p>When you have a large amount of items in your catalog, you have to split it in several smaller catalogs. Stremio will fetch them sequentially when the user scrolls past the last result.</p>
+<p>Every page  must be at maximum of 100 items. If you have more then 100 items in your catalog, you must split them into pages. When the user scrolls past the last item in the page, a request will be made for more data.</p>
+<p>For example, let's say that our catalog has more than 100 items in it. When the user scrolls past these 100-th item, Stremio will ask for the next batch:</p>
+<pre><code class="hljs"><span class="hljs-keyword">GET</span> /catalog/movie/movieCatalog.json
+</code></pre>
+<p>And then</p>
+<pre><code class="hljs"><span class="hljs-builtin-name">GET</span> /catalog/movie/movieCatalog/<span class="hljs-attribute">skip</span>=100.json
+</code></pre>
+<p>The next request will be:</p>
+<pre><code class="hljs"><span class="hljs-builtin-name">GET</span> /catalog/movie/movieCatalog/<span class="hljs-attribute">skip</span>=200.json
+</code></pre>
+<p>This will continue until we return an empty catalog:</p>
+<pre><code class="hljs css language-json">{
+    <span class="hljs-attr">"metas"</span>: []
+}
+</code></pre>
+<h2><a class="anchor" aria-hidden="true" id="summary"></a><a href="#summary" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Summary</h2>
+<p>A Stremio add-on can be crafted to be entirely static. Of course this is not the advised way. For example if you keep on high quality user experience, you will probably want to provide at least a fuzzy word search, so the typos will not affect the result so much.</p>
+<p>From now on it's up to you how your add-on will perform against the competition.</p>
+</span></div></article></div><div class="docs-prevnext"><a class="docs-prev button" href="/stremio-addon-guide/step6"><span class="arrow-prev">← </span><span>Step 6 - Multiple videos</span></a></div></div></div><nav class="onPageNav"><ul class="toc-headings"><li><a href="#searching">Searching</a><ul class="toc-headings"><li><a href="#update-the-manifest">Update the manifest</a></li><li><a href="#try-searching">Try searching</a></li><li><a href="#provide-search-results">Provide search results</a></li></ul></li><li><a href="#genre-filters">Genre filters</a><ul class="toc-headings"><li><a href="#update-the-manifest-1">Update the manifest</a></li><li><a href="#filter-by-genre">Filter by genre</a></li><li><a href="#check-out-the-result">Check out the result</a></li><li><a href="#handle-empty-catalogs">Handle empty catalogs</a></li></ul></li><li><a href="#pagination">Pagination</a></li><li><a href="#summary">Summary</a></li></ul></nav></div><footer class="nav-footer" id="footer"><section class="sitemap"><a href="/stremio-addon-guide/" class="nav-home"><img src="/stremio-addon-guide/img/stremio.svg" alt="Stremio add-ons guide" width="66" height="58"/></a><div><h5>Docs</h5><a href="/stremio-addon-guide/basics">Guide</a><a href="https://github.com/Stremio/stremio-addon-sdk/tree/master/docs/api">API Reference</a></div><div><h5>Community</h5><a href="https://www.reddit.com/r/stremio/" target="_blank" rel="noreferrer noopener">Reddit</a><a href="https://www.facebook.com/stremio/" target="_blank" rel="noreferrer noopener">Facebook</a><a href="https://twitter.com/stremio" target="_blank" rel="noreferrer noopener">Twitter</a></div><div><h5>More</h5><a href="https://www.stremio.com/">Official Website</a><a href="https://blog.stremio.com/">Blog</a><a href="https://github.com/Stremio/">GitHub</a></div></section><section class="copyright">Copyright © 2019 Stremio</section></footer></div></body></html>

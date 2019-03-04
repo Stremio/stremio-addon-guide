@@ -1,0 +1,93 @@
+<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><title>The basics · Stremio add-ons guide</title><meta name="viewport" content="width=device-width"/><meta name="generator" content="Docusaurus"/><meta name="description" content="&lt;p&gt;The add-ons in Stremio are the most fundamental part of the app. They provide the content that the users enjoy.&lt;/p&gt;
+"/><meta name="docsearch:language" content="en"/><meta property="og:title" content="The basics · Stremio add-ons guide"/><meta property="og:type" content="website"/><meta property="og:url" content="https://stremio.github.io/stremio-addon-guide/index.html"/><meta property="og:description" content="&lt;p&gt;The add-ons in Stremio are the most fundamental part of the app. They provide the content that the users enjoy.&lt;/p&gt;
+"/><meta property="og:image" content="https://stremio.github.io/stremio-addon-guide/img/favicon.png"/><meta name="twitter:card" content="summary"/><meta name="twitter:image" content="https://stremio.github.io/stremio-addon-guide/img/favicon.png"/><link rel="shortcut icon" href="/stremio-addon-guide/img/favicon.png"/><link rel="stylesheet" href="css/defaultHighlight.min.css"/><link rel="stylesheet" href="/stremio-addon-guide/css/main.css"/><script src="/stremio-addon-guide/js/codetabs.js"></script></head><body class="sideNavVisible separateOnPageNav"><div class="fixedHeaderContainer"><div class="headerWrapper wrapper"><header><a href="/stremio-addon-guide/"><img class="logo" src="/stremio-addon-guide/img/stremio.svg" alt="Stremio add-ons guide"/><h2 class="headerTitleWithLogo">Stremio add-ons guide</h2></a><div class="navigationWrapper navigationSlider"><nav class="slidingNav"><ul class="nav-site nav-site-internal"><li class=""><a href="/stremio-addon-guide/index" target="_self">Home</a></li><li class="siteNavGroupActive siteNavItemActive"><a href="/stremio-addon-guide/basics" target="_self">Guide</a></li></ul></nav></div></header></div></div><div class="navPusher"><div class="docMainWrapper wrapper"><div class="container docsNavContainer" id="docsNav"><nav class="toc"><div class="toggleNav"><section class="navWrapper wrapper"><div class="navBreadcrumb wrapper"><div class="navToggle" id="navToggler"><i></i></div><h2><i>›</i><span>Add-on guide</span></h2><div class="tocToggler" id="tocToggler"><i class="icon-toc"></i></div></div><div class="navGroups"><div class="navGroup"><h3 class="navGroupCategoryTitle">Add-on guide</h3><ul class=""><li class="navListItem navListItemActive"><a class="navItem" href="/stremio-addon-guide/basics">The basics</a></li><li class="navListItem"><a class="navItem" href="/stremio-addon-guide/step1">Step 1 - The add-on manifest</a></li><li class="navListItem"><a class="navItem" href="/stremio-addon-guide/step2">Step 2 - Testing the add-on</a></li><li class="navListItem"><a class="navItem" href="/stremio-addon-guide/step3">Step 3 - The catalog</a></li><li class="navListItem"><a class="navItem" href="/stremio-addon-guide/step4">Step 4 - Simple meta</a></li><li class="navListItem"><a class="navItem" href="/stremio-addon-guide/step5">Step 5 - Providing streams</a></li><li class="navListItem"><a class="navItem" href="/stremio-addon-guide/step6">Step 6 - Multiple videos</a></li><li class="navListItem"><a class="navItem" href="/stremio-addon-guide/step7">Step 7 - Dynamic content</a></li></ul></div></div></section></div><script>
+            var coll = document.getElementsByClassName('collapsible');
+            var checkActiveCategory = true;
+            for (var i = 0; i < coll.length; i++) {
+              var links = coll[i].nextElementSibling.getElementsByTagName('*');
+              if (checkActiveCategory){
+                for (var j = 0; j < links.length; j++) {
+                  if (links[j].classList.contains('navListItemActive')){
+                    coll[i].nextElementSibling.classList.toggle('hide');
+                    coll[i].childNodes[1].classList.toggle('rotate');
+                    checkActiveCategory = false;
+                    break;
+                  }
+                }
+              }
+
+              coll[i].addEventListener('click', function() {
+                var arrow = this.childNodes[1];
+                arrow.classList.toggle('rotate');
+                var content = this.nextElementSibling;
+                content.classList.toggle('hide');
+              });
+            }
+
+            document.addEventListener('DOMContentLoaded', function() {
+              createToggler('#navToggler', '#docsNav', 'docsSliderActive');
+              createToggler('#tocToggler', 'body', 'tocActive');
+
+              const headings = document.querySelector('.toc-headings');
+              headings && headings.addEventListener('click', function(event) {
+                if (event.target.tagName === 'A') {
+                  document.body.classList.remove('tocActive');
+                }
+              }, false);
+
+              function createToggler(togglerSelector, targetSelector, className) {
+                var toggler = document.querySelector(togglerSelector);
+                var target = document.querySelector(targetSelector);
+
+                if (!toggler) {
+                  return;
+                }
+
+                toggler.onclick = function(event) {
+                  event.preventDefault();
+
+                  target.classList.toggle(className);
+                };
+              }
+            });
+        </script></nav></div><div class="container mainContainer"><div class="wrapper"><div class="post"><header class="postHeader"><h1 class="postHeaderTitle">The basics</h1></header><article><div><span><p>The add-ons in Stremio are the most fundamental part of the app. They provide the content that the users enjoy.</p>
+<p>An add-on in Stremio, unlike other similar apps, doesn't generally run on client's computer (however, there are exceptions). Instead, it is hosted on the Internet just like any website. This brings ease of use and security benefits to the end user.</p>
+<p>If an add-on is served via HTTP, <strong>CORS</strong> headers must be present.</p>
+<h2><a class="anchor" aria-hidden="true" id="the-add-on-philosophy"></a><a href="#the-add-on-philosophy" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>The add-on philosophy</h2>
+<ul>
+<li>Add-ons are not meant to compete with VOD services; they’re meant to <em>integrate</em> existing VOD services into Stremio.</li>
+<li>Add-ons are not meant to be used in the same way as YouTube; you don’t upload your content to a Stremio add-on.</li>
+</ul>
+<h2><a class="anchor" aria-hidden="true" id="manifest"></a><a href="#manifest" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Manifest</h2>
+<p>The add-on must adhere to the add-on API. The most important part is the <strong>manifest</strong>.</p>
+<p>The add-on manifest is a JSON object describing the add-on's capabilities.</p>
+<h2><a class="anchor" aria-hidden="true" id="media-structure"></a><a href="#media-structure" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Media structure</h2>
+<p>Every add-on provides one or more resources for media content. The resources are organized in a tree-like structure. In the root of this tree, we have <strong>catalogs</strong>. The catalogs provide media collections of different <strong>types</strong>. For each type there are <strong>meta items</strong>. These items contain <strong>videos</strong>. Finally, for every video there is one or more <strong>streams</strong>. There is an option where the meta item does not contain videos. In this case it provides streams directly.</p>
+<p>The complete tree should look like that:</p>
+<pre><code class="hljs">Catalog
++-- Type
+    +-- Meta Item
+        +-- Videos
+        +---+-- Streams
+</code></pre>
+<h2><a class="anchor" aria-hidden="true" id="resources"></a><a href="#resources" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Resources</h2>
+<p>For Stremio to be able to display any data, it must first find it. For this purpose in every add-on's manifest, one or more resources must be declared.</p>
+<p>The resources are basically a segmented way to build the content tree we mentioned. Every resource is accessed at a certain endpoint where your add-on should respond with proper data.</p>
+<table>
+<thead>
+<tr><th>Resource</th><th>Endpoint</th><th>Description</th></tr>
+</thead>
+<tbody>
+<tr><td><strong>manifest</strong></td><td><code>/manifest.json</code></td><td>The add-on description and capabilities.</td></tr>
+<tr><td><strong>catalogs</strong></td><td><code>/catalog/</code></td><td>Summarized collection of meta items. Catalogs are displayed on the Srtemio <strong>Board</strong>. You can also browse the catalogs in the <strong>Discover</strong>.</td></tr>
+<tr><td><strong>metadata</strong></td><td><code>/meta/</code></td><td>Detailed description of meta item. This description is displayed when the user selects an item form the catalog.</td></tr>
+<tr><td><strong>streams</strong></td><td><code>/stream/</code></td><td>Tells Srtemio how to obtain the media content. It may be torrent info hash, HTTP URL, etc.</td></tr>
+<tr><td><strong>subtitles</strong></td><td><code>/subtitles/</code></td><td>Subtitles resource for the chosen media.</td></tr>
+</tbody>
+</table>
+<p>All the resources in an add-on can be dynamically generated by a script or just by plain text JSON files located on your file system. Our goal is to introduce you to the Stremio's way of using add-ons rather than fighting with a framework/language. We will use static files. The file system will be used as a router. This approach can also be used in add-on written in PHP or CGI for example.</p>
+<p>In your implementation you are free to use whatever suits your needs.</p>
+<h2><a class="anchor" aria-hidden="true" id="summary"></a><a href="#summary" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Summary</h2>
+<p>At this point you should be familiar with Stremio's media structure, how does add-ons work and their basic endpoints.</p>
+<p>Feel free to proceed to the next chapter and start the guide.</p>
+</span></div></article></div><div class="docs-prevnext"><a class="docs-next button" href="/stremio-addon-guide/step1"><span>Step 1 - The add-on manifest</span><span class="arrow-next"> →</span></a></div></div></div><nav class="onPageNav"><ul class="toc-headings"><li><a href="#the-add-on-philosophy">The add-on philosophy</a></li><li><a href="#manifest">Manifest</a></li><li><a href="#media-structure">Media structure</a></li><li><a href="#resources">Resources</a></li><li><a href="#summary">Summary</a></li></ul></nav></div><footer class="nav-footer" id="footer"><section class="sitemap"><a href="/stremio-addon-guide/" class="nav-home"><img src="/stremio-addon-guide/img/stremio.svg" alt="Stremio add-ons guide" width="66" height="58"/></a><div><h5>Docs</h5><a href="/stremio-addon-guide/basics">Guide</a><a href="https://github.com/Stremio/stremio-addon-sdk/tree/master/docs/api">API Reference</a></div><div><h5>Community</h5><a href="https://www.reddit.com/r/stremio/" target="_blank" rel="noreferrer noopener">Reddit</a><a href="https://www.facebook.com/stremio/" target="_blank" rel="noreferrer noopener">Facebook</a><a href="https://twitter.com/stremio" target="_blank" rel="noreferrer noopener">Twitter</a></div><div><h5>More</h5><a href="https://www.stremio.com/">Official Website</a><a href="https://blog.stremio.com/">Blog</a><a href="https://github.com/Stremio/">GitHub</a></div></section><section class="copyright">Copyright © 2019 Stremio</section></footer></div></body></html>

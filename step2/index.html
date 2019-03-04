@@ -1,0 +1,78 @@
+<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><title>Step 2 - Testing the add-on · Stremio add-ons guide</title><meta name="viewport" content="width=device-width"/><meta name="generator" content="Docusaurus"/><meta name="description" content="&lt;p&gt;Previously, we covered the basic structure of the add-on manifest. Now it is time to make sure it is working properly. Let&#x27;s test it!&lt;/p&gt;
+"/><meta name="docsearch:language" content="en"/><meta property="og:title" content="Step 2 - Testing the add-on · Stremio add-ons guide"/><meta property="og:type" content="website"/><meta property="og:url" content="https://stremio.github.io/stremio-addon-guide/index.html"/><meta property="og:description" content="&lt;p&gt;Previously, we covered the basic structure of the add-on manifest. Now it is time to make sure it is working properly. Let&#x27;s test it!&lt;/p&gt;
+"/><meta property="og:image" content="https://stremio.github.io/stremio-addon-guide/img/favicon.png"/><meta name="twitter:card" content="summary"/><meta name="twitter:image" content="https://stremio.github.io/stremio-addon-guide/img/favicon.png"/><link rel="shortcut icon" href="/stremio-addon-guide/img/favicon.png"/><link rel="stylesheet" href="css/defaultHighlight.min.css"/><link rel="stylesheet" href="/stremio-addon-guide/css/main.css"/><script src="/stremio-addon-guide/js/codetabs.js"></script></head><body class="sideNavVisible separateOnPageNav"><div class="fixedHeaderContainer"><div class="headerWrapper wrapper"><header><a href="/stremio-addon-guide/"><img class="logo" src="/stremio-addon-guide/img/stremio.svg" alt="Stremio add-ons guide"/><h2 class="headerTitleWithLogo">Stremio add-ons guide</h2></a><div class="navigationWrapper navigationSlider"><nav class="slidingNav"><ul class="nav-site nav-site-internal"><li class=""><a href="/stremio-addon-guide/index" target="_self">Home</a></li><li class="siteNavGroupActive"><a href="/stremio-addon-guide/basics" target="_self">Guide</a></li></ul></nav></div></header></div></div><div class="navPusher"><div class="docMainWrapper wrapper"><div class="container docsNavContainer" id="docsNav"><nav class="toc"><div class="toggleNav"><section class="navWrapper wrapper"><div class="navBreadcrumb wrapper"><div class="navToggle" id="navToggler"><i></i></div><h2><i>›</i><span>Add-on guide</span></h2><div class="tocToggler" id="tocToggler"><i class="icon-toc"></i></div></div><div class="navGroups"><div class="navGroup"><h3 class="navGroupCategoryTitle">Add-on guide</h3><ul class=""><li class="navListItem"><a class="navItem" href="/stremio-addon-guide/basics">The basics</a></li><li class="navListItem"><a class="navItem" href="/stremio-addon-guide/step1">Step 1 - The add-on manifest</a></li><li class="navListItem navListItemActive"><a class="navItem" href="/stremio-addon-guide/step2">Step 2 - Testing the add-on</a></li><li class="navListItem"><a class="navItem" href="/stremio-addon-guide/step3">Step 3 - The catalog</a></li><li class="navListItem"><a class="navItem" href="/stremio-addon-guide/step4">Step 4 - Simple meta</a></li><li class="navListItem"><a class="navItem" href="/stremio-addon-guide/step5">Step 5 - Providing streams</a></li><li class="navListItem"><a class="navItem" href="/stremio-addon-guide/step6">Step 6 - Multiple videos</a></li><li class="navListItem"><a class="navItem" href="/stremio-addon-guide/step7">Step 7 - Dynamic content</a></li></ul></div></div></section></div><script>
+            var coll = document.getElementsByClassName('collapsible');
+            var checkActiveCategory = true;
+            for (var i = 0; i < coll.length; i++) {
+              var links = coll[i].nextElementSibling.getElementsByTagName('*');
+              if (checkActiveCategory){
+                for (var j = 0; j < links.length; j++) {
+                  if (links[j].classList.contains('navListItemActive')){
+                    coll[i].nextElementSibling.classList.toggle('hide');
+                    coll[i].childNodes[1].classList.toggle('rotate');
+                    checkActiveCategory = false;
+                    break;
+                  }
+                }
+              }
+
+              coll[i].addEventListener('click', function() {
+                var arrow = this.childNodes[1];
+                arrow.classList.toggle('rotate');
+                var content = this.nextElementSibling;
+                content.classList.toggle('hide');
+              });
+            }
+
+            document.addEventListener('DOMContentLoaded', function() {
+              createToggler('#navToggler', '#docsNav', 'docsSliderActive');
+              createToggler('#tocToggler', 'body', 'tocActive');
+
+              const headings = document.querySelector('.toc-headings');
+              headings && headings.addEventListener('click', function(event) {
+                if (event.target.tagName === 'A') {
+                  document.body.classList.remove('tocActive');
+                }
+              }, false);
+
+              function createToggler(togglerSelector, targetSelector, className) {
+                var toggler = document.querySelector(togglerSelector);
+                var target = document.querySelector(targetSelector);
+
+                if (!toggler) {
+                  return;
+                }
+
+                toggler.onclick = function(event) {
+                  event.preventDefault();
+
+                  target.classList.toggle(className);
+                };
+              }
+            });
+        </script></nav></div><div class="container mainContainer"><div class="wrapper"><div class="post"><header class="postHeader"><h1 class="postHeaderTitle">Step 2 - Testing the add-on</h1></header><article><div><span><p>Previously, we covered the basic structure of the add-on manifest. Now it is time to make sure it is working properly. Let's test it!</p>
+<h2><a class="anchor" aria-hidden="true" id="serving"></a><a href="#serving" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Serving</h2>
+<blockquote>
+<p><strong>Note for serving Stremio add-ons</strong></p>
+<p>Every add-on must provide <strong>CORS</strong> headers for its resources. Stremio <strong>cannot</strong> make use of an add-on that does not support CORS.</p>
+</blockquote>
+<p>For easy serving we'll use the <code>http-server</code> node module. Of course, you can use your preferred HTTP server. Just don't forget to configure it to serve CORS headers.</p>
+<pre><code class="hljs css language-sh">npm -g install http-server
+http-server --cors -c-1
+</code></pre>
+<p>By default <code>http-server</code> serves content on port 8080. It should be printed in your console window, the moment you run it.</p>
+<p>The <code>-c-1</code> argument disables the HTTP cache headers. This will be helpful during the add-on development. The cache is useful in production where your add-on will be stressed by a large number of requests.</p>
+<p>You can leave this server running during the next steps, so that your changes are available immediately.</p>
+<p>Your add-on's manifest is located at <code>http://127.0.0.1:8080/manifest.json</code>.</p>
+<h2><a class="anchor" aria-hidden="true" id="install-the-add-on"></a><a href="#install-the-add-on" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Install the add-on</h2>
+<p>Now let's install your new add-on. Go to Stremio. Open the add-ons configuration either by clicking on the puzzle icon in the upper right corner or by opening it from <code>Settings</code>. Now you can copy the add-on URL from here and paste it in the field labeled <code>Add-on Repository URL</code>. You should be prompted with the installation dialog. Just press <code>Install</code> and your add-on will appear in the <code>My add-ons</code> section.</p>
+<p><img src="/img/install.png" alt="Installed add-on"></p>
+<p>You can also see the request for your manifest in the <code>http-server</code>'s output. In fact, this is where every request to from Stremio to the add-on will be logged. No matter what kind of server or framework you use, it's advised to check your logs regularly. This will help you easily identify possible errors.</p>
+<p>You successfully installed your first add-on. It is useless in it's current form so we recommend you remove it by clicking on the <code>Uninstall</code> button. You will install it again after you add functionality.</p>
+<blockquote>
+<p>Note that reinstalling the add-on by clicking <code>Uninstall</code> followed by clicking <code>Install</code> does <strong>not</strong> reload the manifest, therefore your changes <strong>will not be applied</strong>. You must install it by typing/pasting the URL to your add-on's manifest in the box labeled &quot;Add-on Repository URL&quot;.</p>
+</blockquote>
+<h2><a class="anchor" aria-hidden="true" id="summary"></a><a href="#summary" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Summary</h2>
+<p>Testing your add-on is a very important step of the development process. We recommend you test it regularly so you don't have to search for an error after many changes.</p>
+<p>In the next step we will begin adding functionality, namely the catalog.</p>
+</span></div></article></div><div class="docs-prevnext"><a class="docs-prev button" href="/stremio-addon-guide/step1"><span class="arrow-prev">← </span><span>Step 1 - The add-on manifest</span></a><a class="docs-next button" href="/stremio-addon-guide/step3"><span>Step 3 - The catalog</span><span class="arrow-next"> →</span></a></div></div></div><nav class="onPageNav"><ul class="toc-headings"><li><a href="#serving">Serving</a></li><li><a href="#install-the-add-on">Install the add-on</a></li><li><a href="#summary">Summary</a></li></ul></nav></div><footer class="nav-footer" id="footer"><section class="sitemap"><a href="/stremio-addon-guide/" class="nav-home"><img src="/stremio-addon-guide/img/stremio.svg" alt="Stremio add-ons guide" width="66" height="58"/></a><div><h5>Docs</h5><a href="/stremio-addon-guide/basics">Guide</a><a href="https://github.com/Stremio/stremio-addon-sdk/tree/master/docs/api">API Reference</a></div><div><h5>Community</h5><a href="https://www.reddit.com/r/stremio/" target="_blank" rel="noreferrer noopener">Reddit</a><a href="https://www.facebook.com/stremio/" target="_blank" rel="noreferrer noopener">Facebook</a><a href="https://twitter.com/stremio" target="_blank" rel="noreferrer noopener">Twitter</a></div><div><h5>More</h5><a href="https://www.stremio.com/">Official Website</a><a href="https://blog.stremio.com/">Blog</a><a href="https://github.com/Stremio/">GitHub</a></div></section><section class="copyright">Copyright © 2019 Stremio</section></footer></div></body></html>
