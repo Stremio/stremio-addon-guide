@@ -111,7 +111,7 @@ cp catalog/movie/movieCatalog.json catalog/movie/movieCatalog/search=hello.json
 copy catalog<span class="hljs-symbol">\m</span>ovie<span class="hljs-symbol">\m</span>ovieCatalog.json catalog<span class="hljs-symbol">\m</span>ovie<span class="hljs-symbol">\m</span>ovieCatalog<span class="hljs-symbol">\s</span>earch=hello.json
 </code></pre>
 </span></div></div></div></div><div><span><p>You can try searching for &quot;hello&quot; (There is no need to reinstall the add-on as long as you do not change the manifest). In the web server's log there is no error now. You can see that the last row of search results consists of our movie catalog.</p>
-<p><img src="/img/search.png" alt="Search results"></p>
+<p><img src="/stremio-addon-guide/img/search.png" alt="Search results"></p>
 <p>Of course, this is a static example, but in a real add-on, you'd want to handle this route dynamically and perform a full text search on every search request.</p>
 <h2><a class="anchor" aria-hidden="true" id="genre-filters"></a><a href="#genre-filters" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Genre filters</h2>
 <p>The genre filters are very similar to searching. We just need to add one more thing - a list of genres, our add-on is aware of.</p>
@@ -195,7 +195,7 @@ copy catalog<span class="hljs-symbol">\m</span>ovie<span class="hljs-symbol">\m<
 <p>If you then open our movie catalog, inside the Discover tab in Stremio, you will see the list of our genres.</p>
 <h3><a class="anchor" aria-hidden="true" id="handle-empty-catalogs"></a><a href="#handle-empty-catalogs" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Handle empty catalogs</h3>
 <p>We have stated that this catalog provides a filter for one more genre - the &quot;Demo&quot; genre, but we haven't made a filtered catalog for this genre. It you try to use that filter you will get an error:</p>
-<p><img src="/img/genre_error.png" alt="Error loading catalog"></p>
+<p><img src="/stremio-addon-guide/img/genre_error.png" alt="Error loading catalog"></p>
 <blockquote>
 <p><strong>Note</strong></p>
 <p>When you define genre filter, your add-on must provide a valid response. Otherwise an error message will appear.</p>
