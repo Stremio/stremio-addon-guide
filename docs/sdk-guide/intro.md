@@ -1,4 +1,6 @@
-# Intro
+---
+title: Intro
+---
 
 ## What is Stremio
 

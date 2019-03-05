@@ -28,6 +28,7 @@ const siteConfig = {
   headerLinks: [
     {doc: 'index', label: 'Home'},
     {doc: 'basics', label: 'Guide'},
+    {doc: 'sdk-guide/intro', label: 'SDK'},
   ],
 
   // If you have users set above, you add it here:

@@ -1,4 +1,6 @@
-## Adding catalogs
+---
+title: Adding catalogs
+---
 
 Catalogs are lists of meta items, which appear in Board, Discover and Search.
 
@@ -53,7 +55,7 @@ addon.defineCatalogHandler(({type, id}) => {
 })
 ```
 
-### Multiple catalogs
+## Multiple catalogs
 
 If you want to define multiple catalogs, you can do this by just adding another entry to your `manifest.catalogs`.
 
@@ -72,6 +74,52 @@ If your add-on provides multiple types of content (e.g. movies and series), then
 Now, all you have to do, is serve different contents depending on the `type` and `id` arguments of the handler you defined with `defineCatalogHandler`!
 
 
-### Extra properties
+## Extra properties
 
-@TODO
+In order to provide pagination, filtering and search, you can specify a set of [extra properties](https://github.com/Stremio/stremio-addon-sdk/blob/master/docs/api/responses/manifest.md#extra-properties), for each catalog.
+
+### Pagination
+
+In fact you don't need to change your catalog description in order to handle a pagination. If your catalog exceeds 100 items you must split it into pages. The next page will be requested, when the user scrolls down past the last item on the current page.
+
+These extra properties are passed to the catalog handler via the `extra` object. 
+
+When a new page is requested, the `extra` object will receive a `skip` property, that is usually a multiple of 100 and indicates how many items you should skip before you return the next at most 100 items.
+
+```js
+addon.defineCatalogHandler(({type, id, extra}) => {
+	if (type === "movie" && id === "top") {
+		const skip = extra.skip || 0;
+		const topMetas = []; // Populate metas from somewhere
+		return Promise.resolve({ metas: topMetas.slice(skip, skip + 100) })
+	} else {
+		return Promise.resolve({ metas: [] })
+	}
+})
+
+```
+
+### Searching
+
+@TODO: Refactor the SDK so we don't provide spaghetti code
+
+
+In order to enable searching capability in our add-on, we are going to again update it's manifest. We need to add some "extra" configuration into the catalog definition.
+
+```js
+    "catalogs": [
+        {
+            "type": "movie",
+            "id": "top",
+			"extra": [
+				{ name: "search", isRequired: false },
+			]
+        }
+    ],
+```
+
+This engages the search capabilities in our catalog. Whenever the user enters a query in the Stremio's search box, our add-on will be queried for results.
+
+The isRequired parameter indicates that searching is optional. If set to true the catalog will not be available in the Board and Discover tabs.
+
+Just like the case with pagination, when a search query is available the `search` property will be available in the `extra` object.
