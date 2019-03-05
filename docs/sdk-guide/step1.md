@@ -8,7 +8,7 @@ The `addon-bootstrap` utility will ask you a few questions about your add-on nam
 
 If you only intend to provide catalogs (content in Board/Discover), then you only need the `catalog` resource. Similarly, if you only want to provide streams, just select the `stream` resource.
 
-For more details, read [the Resources explanation](https://github.com/Stremio/stremio-addon-sdk/blob/master/docs/api/README.md) and [Content types](https://github.com/Stremio/stremio-addon-sdk/blob/master/docs/api/responses/content.types.md).
+**For more details, read [the Resources explanation](https://github.com/Stremio/stremio-addon-sdk/blob/master/docs/api/README.md) and [Content types](https://github.com/Stremio/stremio-addon-sdk/blob/master/docs/api/responses/content.types.md).**
 
 ### Initialize the add-on
 
