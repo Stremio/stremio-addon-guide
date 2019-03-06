@@ -38,20 +38,46 @@ If your add-on only has one catalog, we recommend setting the `id` to `"top"` - 
 Now, let's handle this catalog:
 
 ```javascript
+// Populate the catalog from somewhere
+function getMoviesCatalog(catalogName) {
+    let catalog;
+
+    switch(catalogName) {
+        case 'top':
+            catalog = [
+                {
+                    id: "tt1254207",
+                    type: "movie",
+                    name: "The Big Buck Bunny",
+                    poster: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c5/Big_buck_bunny_poster_big.jpg/220px-Big_buck_bunny_poster_big.jpg",
+                    genres: [ "Animation", "Short", "Comedy" ]
+                },
+            ]
+            break
+        default:
+            catalog = []
+            break
+    }
+
+    return Promise.resolve(catalog)
+}
+
 // Docs: https://github.com/Stremio/stremio-addon-sdk/blob/master/docs/api/requests/defineCatalogHandler.md
 addon.defineCatalogHandler(({type, id}) => {
-	if (type === "movie" && id === "top") {
-		return Promise.resolve({ metas: [
-			{
-				id: "tt1254207",
-				type: "movie",
-				name: "The Big Buck Bunny",
-				poster: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c5/Big_buck_bunny_poster_big.jpg/220px-Big_buck_bunny_poster_big.jpg"
-			}
-		] })
-	} else {
-		return Promise.resolve({ metas: [] })
-	}
+    let results;
+
+    switch(type) {
+        case 'movie':
+            results = getMoviesCatalog(id)
+            break
+       default:
+            results = Promise.resolve( [] )
+            break
+    }
+
+    return results.then(items => ({
+        metas: items
+    }))
 })
 ```
 
@@ -88,38 +114,128 @@ When a new page is requested, the `extra` object will receive a `skip` property,
 
 ```js
 addon.defineCatalogHandler(({type, id, extra}) => {
-	if (type === "movie" && id === "top") {
-		const skip = extra.skip || 0;
-		const topMetas = []; // Populate metas from somewhere
-		return Promise.resolve({ metas: topMetas.slice(skip, skip + 100) })
-	} else {
-		return Promise.resolve({ metas: [] })
-	}
-})
+    let results;
 
+    switch(type) {
+        case 'movie':
+            results = getMoviesCatalog(id)
+            break
+       default:
+            results = Promise.resolve( [] )
+            break
+    }
+
+    const skip = extra.skip || 0;
+    return results.then(items => ({
+        metas: items.slice(skip, skip + 100)
+    }))
+})
 ```
 
 ### Searching
 
-@TODO: Refactor the SDK so we don't provide spaghetti code
-
-
 In order to enable searching capability in our add-on, we are going to again update it's manifest. We need to add some "extra" configuration into the catalog definition.
 
 ```js
-    "catalogs": [
-        {
-            "type": "movie",
-            "id": "top",
-			"extra": [
-				{ name: "search", isRequired: false },
-			]
-        }
-    ],
+"catalogs": [
+    {
+        "type": "movie",
+        "id": "top",
+        "extra": [
+            { "name": "search", "isRequired": false },
+        ]
+    },
+],
 ```
 
 This engages the search capabilities in our catalog. Whenever the user enters a query in the Stremio's search box, our add-on will be queried for results.
 
 The isRequired parameter indicates that searching is optional. If set to true the catalog will not be available in the Board and Discover tabs.
 
-Just like the case with pagination, when a search query is available the `search` property will be available in the `extra` object.
+Just like the case with pagination, when a search query is available the `search` property will be present in the `extra` object.
+
+```js
+addon.defineCatalogHandler(({type, id, extra}) => {
+    let results;
+
+    switch(type) {
+        case 'movie':
+            results = getMoviesCatalog(id)
+            break
+       default:
+            results = Promise.resolve( [] )
+            break
+    }
+    if(extra.search) {
+        return results.then(items => ({
+            metas: items.filter(meta => meta.name
+            .toLowercase()
+            .includes(extra.search.toLowercase()))
+        }))
+    }
+
+    const skip = extra.skip || 0;
+    return results.then(items => ({
+        metas: items.slice(skip, skip + 100)
+    }))
+ })
+```
+
+### Genre filters
+
+The genre filters are very similar to searching. We just need to add one more thing - a list of genres, our add-on is aware of.
+
+```js
+"catalogs": [
+    {
+        "type": "movie",
+        "id": "top",
+        "extra": [
+            { "name": "search", "isRequired": false },
+            { "name": "genre", "isRequired": false },
+        ],
+        "genres": [ "Animation", "Comedy" ]
+    },
+],
+```
+
+We don't list all genres of the content we provide. We list only the ones we can handle.
+
+> Note
+>
+> `isRequired` must not be set to `true` on more than one extra paremeter. Otherwise your catalog will be ignored.
+
+And this is the final result:
+
+```js
+addon.defineCatalogHandler(({type, id, extra}) => {
+    let results;
+
+    switch(type) {
+        case 'movie':
+            results = getMoviesCatalog(id)
+            break
+       default:
+            results = Promise.resolve( [] )
+            break
+    }
+    if(extra.search) {
+        return results.then(items => {
+            metas: items.filter(meta => meta.name
+            .toLowercase()
+            .includes(extra.search.toLowercase()))
+        })
+    } else if(extra.genre) {
+        return results.then(items => ({
+            metas: items.filter(meta => meta.genres
+            .includes(extra.genre))
+        }))
+    }
+
+    const skip = extra.skip || 0;
+    return results.then(items => ({
+        metas: items.slice(skip, skip + 100)
+    }))
+ })
+```
+
