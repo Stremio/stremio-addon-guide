@@ -199,7 +199,7 @@ The genre filters are very similar to searching. We just need to add one more th
 ],
 ```
 
-We don't list all genres of the content we provide. We list only the ones we can handle.
+We don't list all genres of the content we provide. We list only the ones our catalog is capable of filtering.
 
 > Note
 >
