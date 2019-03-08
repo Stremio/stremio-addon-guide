@@ -1,5 +1,5 @@
 ---
-title: Intro
+title: Prelude
 ---
 
 ## What is Stremio
