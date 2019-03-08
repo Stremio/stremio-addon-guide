@@ -1,6 +1,6 @@
-# Intro
-
-## What is Stremio
+---
+title: Prelude
+---
 
 Stremio is a modern media center that's a one-stop solution for your video entertainment. It features an add-on system that is responsible for all of the available content.
 

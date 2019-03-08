@@ -1,6 +1,5 @@
 ---
-id: step7
-title: Step 7 - Dynamic content
+title: 7. Dynamic content
 ---
 
 There are cases where you will want to do some server side work so your add-on can provide better user experience. For example there is a way to paginate the catalogs. You can also provide search and filtering by genre, to name a few.
@@ -15,7 +14,7 @@ In order to enable searching capability in our add-on, we are going to yet again
 ```js
 "catalogs": [
     {
-        "id": "movieCatalog", "type": "movie", "name": "Hello, Movies", 
+        "id": "movieCatalog", "type": "movie", "name": "Hello, Movies",
         "extra": [
             { "name": "search", "isRequired": false }
         ]
@@ -104,7 +103,7 @@ The genre filters are very similar to searching. We just need to add one more th
 
 ```json
 {
-    "id": "movieCatalog", "type": "movie", "name": "Hello, Movies", 
+    "id": "movieCatalog", "type": "movie", "name": "Hello, Movies",
     "extra": [
         { "name": "search", "isRequired": false },
         { "name": "genre", "isRequired": false }

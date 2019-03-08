@@ -1,5 +1,4 @@
 ---
-id: basics
 title: The basics
 ---
 
@@ -19,7 +18,7 @@ The add-on philosophy
 Manifest
 ---
 
-The add-on must adhere to the add-on API. The most important part is the **manifest**. 
+The add-on must adhere to the add-on API. The most important part is the **manifest**.
 
 The add-on manifest is a JSON object describing the add-on's capabilities.
 

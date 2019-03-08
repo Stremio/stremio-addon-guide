@@ -1,6 +1,5 @@
 ---
-id: step5
-title: Step 5 - Providing streams
+title: 5. Providing streams
 ---
 
 Our add-on now features catalog with item details. Now is the time to supply and some streams.

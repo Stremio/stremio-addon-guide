@@ -1,6 +1,5 @@
 ---
-id: step3
-title: Step 3 - The catalog
+title: 3. The catalog
 ---
 
 We covered the basic structure of the add-on manifest. Now it is time to make our add-on useful.
@@ -118,6 +117,6 @@ When you navigate Stremio to the **Board** you will see, that our catalog is lis
 Summary
 ---
 
-Adding features in Stremio's add-ons involves updating the manifest by describing the feature. Everything else is structured data. 
+Adding features in Stremio's add-ons involves updating the manifest by describing the feature. Everything else is structured data.
 
 In the next step we will dive into the meta description objects.

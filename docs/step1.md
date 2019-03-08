@@ -1,6 +1,5 @@
 ---
-id: step1
-title: Step 1 - The add-on manifest
+title: 1. The add-on manifest
 ---
 
 This is the first step in our add-on guide. We'll create the add-on manifest for a very basic add-on.

@@ -17,5 +17,7 @@ You can develop a Stremio add-on in any language you wish or even no programming
 
 ## Where to start
 
-You can [begin the guide right now](/stremio-addon-guide/basics).
+If you’re familiar with NodeJS and want to build your addon with it, proceed to our [SDk guide](/stremio-addon-guide/sdk-guide/prelude).
+
+Else, you can read the [general purpose guide](/stremio-addon-guide/basics).
 
