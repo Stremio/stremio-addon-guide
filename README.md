@@ -1,5 +1,9 @@
 # stremio-addons-guide
 
+## Read
+
+You can read this guide at https://stremio.github.io/stremio-addon-guide/
+
 ## Start
 
 ```
