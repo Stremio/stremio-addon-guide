@@ -87,26 +87,36 @@ Now is the time to implement our meta handler. We will use similar approach as w
 function getMovieMeta(id) {
     const metas = {
         hiwrld_jellyfish: {
-            "id": "hiwrld_jellyfish",
-            "type": "movie",
-            "name": "Jellyfish",
-            "poster": "https://images.unsplash.com/photo-1496108493338-3b30de66f9be",
-            "genres": ["Demo", "Nature"],
-            "description": "A .mkv video clip useful for testing the network streaming and playback performance of media streamers & HTPCs.",
-            "cast": ["Some random jellyfishes"],
-            "director": ["ScottAllyn"],
-            "logo": "https://b.kisscc0.com/20180705/yee/kisscc0-art-forms-in-nature-jellyfish-recapitulation-theor-jellyfish-5b3dcabcb00692.802484341530776252721.png",
-            "background": "https://images.unsplash.com/photo-1461783470466-185038239ee3",
-            "runtime": "30 sec"
+            id: "hiwrld_jellyfish",
+            type: "movie",
+            name: "Jellyfish",
+            poster: "https://images.unsplash.com/photo-1496108493338-3b30de66f9be",
+            genres: ["Demo", "Nature"],
+            description: "A .mkv video clip useful for testing the network streaming and playback performance of media streamers & HTPCs.",
+            cast: ["Some random jellyfishes"],
+            director: ["ScottAllyn"],
+            logo: "https://b.kisscc0.com/20180705/yee/kisscc0-art-forms-in-nature-jellyfish-recapitulation-theor-jellyfish-5b3dcabcb00692.802484341530776252721.png",
+            background: "https://images.unsplash.com/photo-1461783470466-185038239ee3",
+            runtime: "30 sec"
         },
     }
     Promise.resolve(metas[id] || null)
 }
 
-addon.defineMetaHandler(({type, id}) => {                                 
+addon.defineMetaHandler(({type, id}) => {
     // Docs: https://github.com/Stremio/stremio-addon-sdk/blob/master/docs/api/requests/defineMetaHandler.md
-    
-    return Promise.resolve({ meta: null })
+    let results;
+
+    switch(type) {
+        case 'movie':
+            results = getMovieMeta(id)
+            break
+       default:
+            results = null
+            break
+    }
+    return Promise.resolve({ meta: results })
 })
 ```
 
+As you can see, we have added a lot more data to our meta info. You can check all the fields available in the [API documentation](https://github.com/Stremio/stremio-addon-sdk/blob/master/docs/api/responses/meta.md).
