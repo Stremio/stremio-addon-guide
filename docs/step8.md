@@ -26,3 +26,5 @@ Invoke-RestMethod -Body (@{transportUrl="https://example.com/manifest.json"; tra
 <!--END_DOCUSAURUS_CODE_TABS-->
 
 You just need to substitute the value of the `transportURL` with the location where your add-on is hosted.
+
+> It's recommended to test your add-on before you publish it. If your URL leads to broken add-on it will be silently accepted, but it will not be listed in the third party add-ons catalog.

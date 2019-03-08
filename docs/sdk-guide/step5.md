@@ -33,3 +33,5 @@ publishToCentral('https://example.com/manifest.json')
 ```
 
 Of course you need to substitute the example URL with the actual one, where the add-on is hosted.
+
+> It's recommended to test your add-on before you publish it. If your URL leads to broken add-on it will be silently accepted, but it will not be listed in the third party add-ons catalog.
