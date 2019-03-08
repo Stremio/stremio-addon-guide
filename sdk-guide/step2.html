@@ -1,0 +1,248 @@
+<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><title>2. Adding catalogs · Stremio add-ons guide</title><meta name="viewport" content="width=device-width"/><meta name="generator" content="Docusaurus"/><meta name="description" content="&lt;p&gt;Catalogs are lists of meta items, which appear in Board, Discover and Search.&lt;/p&gt;
+"/><meta name="docsearch:language" content="en"/><meta property="og:title" content="2. Adding catalogs · Stremio add-ons guide"/><meta property="og:type" content="website"/><meta property="og:url" content="https://stremio.github.io/stremio-addon-guide/index.html"/><meta property="og:description" content="&lt;p&gt;Catalogs are lists of meta items, which appear in Board, Discover and Search.&lt;/p&gt;
+"/><meta property="og:image" content="https://stremio.github.io/stremio-addon-guide/img/favicon.png"/><meta name="twitter:card" content="summary"/><meta name="twitter:image" content="https://stremio.github.io/stremio-addon-guide/img/favicon.png"/><link rel="shortcut icon" href="/stremio-addon-guide/img/favicon.png"/><link rel="stylesheet" href="css/defaultHighlight.min.css"/><link rel="stylesheet" href="/stremio-addon-guide/css/main.css"/><script src="/stremio-addon-guide/js/codetabs.js"></script></head><body class="sideNavVisible separateOnPageNav"><div class="fixedHeaderContainer"><div class="headerWrapper wrapper"><header><a href="/stremio-addon-guide/"><img class="logo" src="/stremio-addon-guide/img/stremio.svg" alt="Stremio add-ons guide"/><h2 class="headerTitleWithLogo">Stremio add-ons guide</h2></a><div class="navigationWrapper navigationSlider"><nav class="slidingNav"><ul class="nav-site nav-site-internal"><li class=""><a href="/stremio-addon-guide/index" target="_self">Home</a></li><li class="siteNavGroupActive"><a href="/stremio-addon-guide/sdk-guide/prelude" target="_self">SDK</a></li><li class="siteNavGroupActive"><a href="/stremio-addon-guide/basics" target="_self">Guide</a></li></ul></nav></div></header></div></div><div class="navPusher"><div class="docMainWrapper wrapper"><div class="container docsNavContainer" id="docsNav"><nav class="toc"><div class="toggleNav"><section class="navWrapper wrapper"><div class="navBreadcrumb wrapper"><div class="navToggle" id="navToggler"><i></i></div><h2><i>›</i><span>Add-on SDK Guide</span></h2><div class="tocToggler" id="tocToggler"><i class="icon-toc"></i></div></div><div class="navGroups"><div class="navGroup"><h3 class="navGroupCategoryTitle">Add-on SDK Guide</h3><ul class=""><li class="navListItem"><a class="navItem" href="/stremio-addon-guide/sdk-guide/prelude">Prelude</a></li><li class="navListItem"><a class="navItem" href="/stremio-addon-guide/sdk-guide/step1">1. Get started</a></li><li class="navListItem navListItemActive"><a class="navItem" href="/stremio-addon-guide/sdk-guide/step2">2. Adding catalogs</a></li><li class="navListItem"><a class="navItem" href="/stremio-addon-guide/sdk-guide/step3">3. Meta</a></li><li class="navListItem"><a class="navItem" href="/stremio-addon-guide/sdk-guide/step4">4. Streams</a></li><li class="navListItem"><a class="navItem" href="/stremio-addon-guide/sdk-guide/step5">5. Deploying</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle">Generic Add-on Guide</h3><ul class=""><li class="navListItem"><a class="navItem" href="/stremio-addon-guide/basics">The basics</a></li><li class="navListItem"><a class="navItem" href="/stremio-addon-guide/step1">1. The add-on manifest</a></li><li class="navListItem"><a class="navItem" href="/stremio-addon-guide/step2">2. Testing the add-on</a></li><li class="navListItem"><a class="navItem" href="/stremio-addon-guide/step3">3. The catalog</a></li><li class="navListItem"><a class="navItem" href="/stremio-addon-guide/step4">4. Simple meta</a></li><li class="navListItem"><a class="navItem" href="/stremio-addon-guide/step5">5. Providing streams</a></li><li class="navListItem"><a class="navItem" href="/stremio-addon-guide/step6">6. Multiple videos</a></li><li class="navListItem"><a class="navItem" href="/stremio-addon-guide/step7">7. Dynamic content</a></li><li class="navListItem"><a class="navItem" href="/stremio-addon-guide/step8">8. Deploying</a></li></ul></div></div></section></div><script>
+            var coll = document.getElementsByClassName('collapsible');
+            var checkActiveCategory = true;
+            for (var i = 0; i < coll.length; i++) {
+              var links = coll[i].nextElementSibling.getElementsByTagName('*');
+              if (checkActiveCategory){
+                for (var j = 0; j < links.length; j++) {
+                  if (links[j].classList.contains('navListItemActive')){
+                    coll[i].nextElementSibling.classList.toggle('hide');
+                    coll[i].childNodes[1].classList.toggle('rotate');
+                    checkActiveCategory = false;
+                    break;
+                  }
+                }
+              }
+
+              coll[i].addEventListener('click', function() {
+                var arrow = this.childNodes[1];
+                arrow.classList.toggle('rotate');
+                var content = this.nextElementSibling;
+                content.classList.toggle('hide');
+              });
+            }
+
+            document.addEventListener('DOMContentLoaded', function() {
+              createToggler('#navToggler', '#docsNav', 'docsSliderActive');
+              createToggler('#tocToggler', 'body', 'tocActive');
+
+              const headings = document.querySelector('.toc-headings');
+              headings && headings.addEventListener('click', function(event) {
+                if (event.target.tagName === 'A') {
+                  document.body.classList.remove('tocActive');
+                }
+              }, false);
+
+              function createToggler(togglerSelector, targetSelector, className) {
+                var toggler = document.querySelector(togglerSelector);
+                var target = document.querySelector(targetSelector);
+
+                if (!toggler) {
+                  return;
+                }
+
+                toggler.onclick = function(event) {
+                  event.preventDefault();
+
+                  target.classList.toggle(className);
+                };
+              }
+            });
+        </script></nav></div><div class="container mainContainer"><div class="wrapper"><div class="post"><header class="postHeader"><h1 class="postHeaderTitle">2. Adding catalogs</h1></header><article><div><span><p>Catalogs are lists of meta items, which appear in Board, Discover and Search.</p>
+<p>If you want to provide catalogs, you should have the <code>&quot;catalog&quot;</code> resource in your <code>resources</code> field in the <a href="https://github.com/Stremio/stremio-addon-sdk/blob/master/docs/api/responses/manifest.md">manifest</a>, and you should have at least one entry in the manifest's <code>catalogs</code>.</p>
+<p>If you've selected &quot;catalog&quot; in <code>addon-bootstrap</code>, you will have this already:</p>
+<pre><code class="hljs css language-javascript"><span class="hljs-comment">// Docs: https://github.com/Stremio/stremio-addon-sdk/blob/master/docs/api/responses/manifest.md</span>
+<span class="hljs-keyword">const</span> manifest = {
+    <span class="hljs-string">"id"</span>: <span class="hljs-string">"community.helloworld"</span>,
+    <span class="hljs-string">"version"</span>: <span class="hljs-string">"0.0.1"</span>,
+    <span class="hljs-string">"catalogs"</span>: [
+        {
+            <span class="hljs-string">"type"</span>: <span class="hljs-string">"movie"</span>,
+            <span class="hljs-string">"id"</span>: <span class="hljs-string">"top"</span>
+        }
+    ],
+    <span class="hljs-string">"resources"</span>: [
+        <span class="hljs-string">"catalog"</span>
+    ],
+    <span class="hljs-string">"types"</span>: [
+        <span class="hljs-string">"movie"</span>,
+        <span class="hljs-string">"series"</span>
+    ],
+    <span class="hljs-string">"name"</span>: <span class="hljs-string">"he"</span>,
+    <span class="hljs-string">"description"</span>: <span class="hljs-string">"f"</span>
+}
+</code></pre>
+<p>Note the first element of the <code>catalogs</code> array. The <code>type</code> definition determines how it will be classified in Discover/Board/Search, and the <code>id</code> exists to enable you to have multiple catalogs per add-on.</p>
+<p>If your add-on only has one catalog, we recommend setting the <code>id</code> to <code>&quot;top&quot;</code> - it's not needed, but it's the de-facto standard for saying &quot;this is the best/top content from my add-on&quot;.</p>
+<p>Now, let's handle this catalog:</p>
+<pre><code class="hljs css language-javascript"><span class="hljs-comment">// Populate the catalog from somewhere</span>
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">getMoviesCatalog</span>(<span class="hljs-params">catalogName</span>) </span>{
+    <span class="hljs-keyword">let</span> catalog;
+
+    <span class="hljs-keyword">switch</span>(catalogName) {
+        <span class="hljs-keyword">case</span> <span class="hljs-string">'top'</span>:
+            catalog = [
+                {
+                    <span class="hljs-attr">id</span>: <span class="hljs-string">"tt1254207"</span>,
+                    <span class="hljs-attr">type</span>: <span class="hljs-string">"movie"</span>,
+                    <span class="hljs-attr">name</span>: <span class="hljs-string">"The Big Buck Bunny"</span>,
+                    <span class="hljs-attr">poster</span>: <span class="hljs-string">"https://upload.wikimedia.org/wikipedia/commons/thumb/c/c5/Big_buck_bunny_poster_big.jpg/220px-Big_buck_bunny_poster_big.jpg"</span>,
+                    <span class="hljs-attr">genres</span>: [ <span class="hljs-string">"Animation"</span>, <span class="hljs-string">"Short"</span>, <span class="hljs-string">"Comedy"</span> ]
+                },
+            ]
+            <span class="hljs-keyword">break</span>
+        <span class="hljs-keyword">default</span>:
+            catalog = []
+            <span class="hljs-keyword">break</span>
+    }
+
+    <span class="hljs-keyword">return</span> <span class="hljs-built_in">Promise</span>.resolve(catalog)
+}
+
+<span class="hljs-comment">// Docs: https://github.com/Stremio/stremio-addon-sdk/blob/master/docs/api/requests/defineCatalogHandler.md</span>
+addon.defineCatalogHandler(<span class="hljs-function">(<span class="hljs-params">{type, id}</span>) =&gt;</span> {
+    <span class="hljs-keyword">let</span> results;
+
+    <span class="hljs-keyword">switch</span>(type) {
+        <span class="hljs-keyword">case</span> <span class="hljs-string">'movie'</span>:
+            results = getMoviesCatalog(id)
+            <span class="hljs-keyword">break</span>
+       <span class="hljs-keyword">default</span>:
+            results = <span class="hljs-built_in">Promise</span>.resolve( [] )
+            <span class="hljs-keyword">break</span>
+    }
+
+    <span class="hljs-keyword">return</span> results.then(<span class="hljs-function"><span class="hljs-params">items</span> =&gt;</span> ({
+        <span class="hljs-attr">metas</span>: items
+    }))
+})
+</code></pre>
+<h2><a class="anchor" aria-hidden="true" id="multiple-catalogs"></a><a href="#multiple-catalogs" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Multiple catalogs</h2>
+<p>If you want to define multiple catalogs, you can do this by just adding another entry to your <code>manifest.catalogs</code>.</p>
+<p>If your add-on provides multiple types of content (e.g. movies and series), then you have to provide your catalogs separately for each type, for example:</p>
+<pre><code class="hljs">    <span class="hljs-comment">// in the manifest definition</span>
+    <span class="hljs-string">"catalogs"</span>: [
+        { <span class="hljs-string">"type"</span>: <span class="hljs-string">"movie"</span>, <span class="hljs-string">"id"</span>: <span class="hljs-string">"top-by-popularity"</span> },
+        { <span class="hljs-string">"type"</span>: <span class="hljs-string">"movie"</span>, <span class="hljs-string">"id"</span>: <span class="hljs-string">"top-by-rating"</span> },
+        { <span class="hljs-string">"type"</span>: <span class="hljs-string">"series"</span>, <span class="hljs-string">"id"</span>: <span class="hljs-string">"top-by-popularity"</span> },
+        { <span class="hljs-string">"type"</span>: <span class="hljs-string">"series"</span>, <span class="hljs-string">"id"</span>: <span class="hljs-string">"top-by-rating"</span> },
+    ],
+</code></pre>
+<p>Now, all you have to do, is serve different contents depending on the <code>type</code> and <code>id</code> arguments of the handler you defined with <code>defineCatalogHandler</code>!</p>
+<h2><a class="anchor" aria-hidden="true" id="extra-properties"></a><a href="#extra-properties" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Extra properties</h2>
+<p>In order to provide pagination, filtering and search, you can specify a set of <a href="https://github.com/Stremio/stremio-addon-sdk/blob/master/docs/api/responses/manifest.md#extra-properties">extra properties</a>, for each catalog.</p>
+<h3><a class="anchor" aria-hidden="true" id="pagination"></a><a href="#pagination" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Pagination</h3>
+<p>In fact you don't need to change your catalog description in order to handle pagination. If your catalog exceeds 100 items you must split them into pages. The next page will be requested, when the user scrolls down past the last item on the current page.</p>
+<p>These extra properties are passed to the catalog handler via the <code>extra</code> object.</p>
+<p>When a new page is requested, the <code>extra</code> object will receive a <code>skip</code> property, that is usually a multiple of 100 and indicates how many items you should skip before you return the next at most 100 items.</p>
+<pre><code class="hljs css language-js">addon.defineCatalogHandler(<span class="hljs-function">(<span class="hljs-params">{type, id, extra}</span>) =&gt;</span> {
+    <span class="hljs-keyword">let</span> results;
+
+    <span class="hljs-keyword">switch</span>(type) {
+        <span class="hljs-keyword">case</span> <span class="hljs-string">'movie'</span>:
+            results = getMoviesCatalog(id)
+            <span class="hljs-keyword">break</span>
+       <span class="hljs-keyword">default</span>:
+            results = <span class="hljs-built_in">Promise</span>.resolve( [] )
+            <span class="hljs-keyword">break</span>
+    }
+
+    <span class="hljs-keyword">const</span> skip = extra.skip || <span class="hljs-number">0</span>;
+    <span class="hljs-keyword">return</span> results.then(<span class="hljs-function"><span class="hljs-params">items</span> =&gt;</span> ({
+        <span class="hljs-attr">metas</span>: items.slice(skip, skip + <span class="hljs-number">100</span>)
+    }))
+})
+</code></pre>
+<h3><a class="anchor" aria-hidden="true" id="searching"></a><a href="#searching" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Searching</h3>
+<p>In order to enable searching capability in our add-on, we are going to again update it's manifest. We need to add some &quot;extra&quot; configuration into the catalog definition.</p>
+<pre><code class="hljs css language-js"><span class="hljs-string">"catalogs"</span>: [
+    {
+        <span class="hljs-string">"type"</span>: <span class="hljs-string">"movie"</span>,
+        <span class="hljs-string">"id"</span>: <span class="hljs-string">"top"</span>,
+        <span class="hljs-string">"extra"</span>: [
+            { <span class="hljs-string">"name"</span>: <span class="hljs-string">"search"</span>, <span class="hljs-string">"isRequired"</span>: <span class="hljs-literal">false</span> },
+        ]
+    },
+],
+</code></pre>
+<p>This engages the search capabilities in our catalog. Whenever the user enters a query in the Stremio's search box, our add-on will be queried for results.</p>
+<p>The isRequired parameter indicates that searching is optional. If set to true the catalog will not be available in the Board and Discover tabs.</p>
+<p>Just like the case with pagination, when a search query is available the <code>search</code> property will be present in the <code>extra</code> object.</p>
+<pre><code class="hljs css language-js">addon.defineCatalogHandler(<span class="hljs-function">(<span class="hljs-params">{type, id, extra}</span>) =&gt;</span> {
+    <span class="hljs-keyword">let</span> results;
+
+    <span class="hljs-keyword">switch</span>(type) {
+        <span class="hljs-keyword">case</span> <span class="hljs-string">'movie'</span>:
+            results = getMoviesCatalog(id)
+            <span class="hljs-keyword">break</span>
+       <span class="hljs-keyword">default</span>:
+            results = <span class="hljs-built_in">Promise</span>.resolve( [] )
+            <span class="hljs-keyword">break</span>
+    }
+    <span class="hljs-keyword">if</span>(extra.search) {
+        <span class="hljs-keyword">return</span> results.then(<span class="hljs-function"><span class="hljs-params">items</span> =&gt;</span> ({
+            <span class="hljs-attr">metas</span>: items.filter(<span class="hljs-function"><span class="hljs-params">meta</span> =&gt;</span> meta.name
+            .toLowercase()
+            .includes(extra.search.toLowercase()))
+        }))
+    }
+
+    <span class="hljs-keyword">const</span> skip = extra.skip || <span class="hljs-number">0</span>;
+    <span class="hljs-keyword">return</span> results.then(<span class="hljs-function"><span class="hljs-params">items</span> =&gt;</span> ({
+        <span class="hljs-attr">metas</span>: items.slice(skip, skip + <span class="hljs-number">100</span>)
+    }))
+ })
+</code></pre>
+<h3><a class="anchor" aria-hidden="true" id="genre-filters"></a><a href="#genre-filters" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Genre filters</h3>
+<p>The genre filters are very similar to searching. We just need to add one more thing - a list of genres, our add-on is aware of.</p>
+<pre><code class="hljs css language-js"><span class="hljs-string">"catalogs"</span>: [
+    {
+        <span class="hljs-string">"type"</span>: <span class="hljs-string">"movie"</span>,
+        <span class="hljs-string">"id"</span>: <span class="hljs-string">"top"</span>,
+        <span class="hljs-string">"extra"</span>: [
+            { <span class="hljs-string">"name"</span>: <span class="hljs-string">"search"</span>, <span class="hljs-string">"isRequired"</span>: <span class="hljs-literal">false</span> },
+            { <span class="hljs-string">"name"</span>: <span class="hljs-string">"genre"</span>, <span class="hljs-string">"isRequired"</span>: <span class="hljs-literal">false</span> },
+        ],
+        <span class="hljs-string">"genres"</span>: [ <span class="hljs-string">"Animation"</span>, <span class="hljs-string">"Comedy"</span> ]
+    },
+],
+</code></pre>
+<p>We don't list all genres of the content we provide. We list only the ones our catalog is capable of filtering.</p>
+<blockquote>
+<p>Note</p>
+<p><code>isRequired</code> must not be set to <code>true</code> on more than one extra paremeter. Otherwise your catalog will be ignored.</p>
+</blockquote>
+<p>And this is the final result:</p>
+<pre><code class="hljs css language-js">addon.defineCatalogHandler(<span class="hljs-function">(<span class="hljs-params">{type, id, extra}</span>) =&gt;</span> {
+    <span class="hljs-keyword">let</span> results;
+
+    <span class="hljs-keyword">switch</span>(type) {
+        <span class="hljs-keyword">case</span> <span class="hljs-string">'movie'</span>:
+            results = getMoviesCatalog(id)
+            <span class="hljs-keyword">break</span>
+       <span class="hljs-keyword">default</span>:
+            results = <span class="hljs-built_in">Promise</span>.resolve( [] )
+            <span class="hljs-keyword">break</span>
+    }
+    <span class="hljs-keyword">if</span>(extra.search) {
+        <span class="hljs-keyword">return</span> results.then(<span class="hljs-function"><span class="hljs-params">items</span> =&gt;</span> {
+            <span class="hljs-attr">metas</span>: items.filter(<span class="hljs-function"><span class="hljs-params">meta</span> =&gt;</span> meta.name
+            .toLowercase()
+            .includes(extra.search.toLowercase()))
+        })
+    } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(extra.genre) {
+        <span class="hljs-keyword">return</span> results.then(<span class="hljs-function"><span class="hljs-params">items</span> =&gt;</span> ({
+            <span class="hljs-attr">metas</span>: items.filter(<span class="hljs-function"><span class="hljs-params">meta</span> =&gt;</span> meta.genres
+            .includes(extra.genre))
+        }))
+    }
+
+    <span class="hljs-keyword">const</span> skip = extra.skip || <span class="hljs-number">0</span>;
+    <span class="hljs-keyword">return</span> results.then(<span class="hljs-function"><span class="hljs-params">items</span> =&gt;</span> ({
+        <span class="hljs-attr">metas</span>: items.slice(skip, skip + <span class="hljs-number">100</span>)
+    }))
+ })
+</code></pre>
+</span></div></article></div><div class="docs-prevnext"><a class="docs-prev button" href="/stremio-addon-guide/sdk-guide/step1"><span class="arrow-prev">← </span><span>1. Get started</span></a><a class="docs-next button" href="/stremio-addon-guide/sdk-guide/step3"><span>3. Meta</span><span class="arrow-next"> →</span></a></div></div></div><nav class="onPageNav"><ul class="toc-headings"><li><a href="#multiple-catalogs">Multiple catalogs</a></li><li><a href="#extra-properties">Extra properties</a><ul class="toc-headings"><li><a href="#pagination">Pagination</a></li><li><a href="#searching">Searching</a></li><li><a href="#genre-filters">Genre filters</a></li></ul></li></ul></nav></div><footer class="nav-footer" id="footer"><section class="sitemap"><a href="/stremio-addon-guide/" class="nav-home"><img src="/stremio-addon-guide/img/stremio.svg" alt="Stremio add-ons guide" width="66" height="58"/></a><div><h5>Docs</h5><a href="/stremio-addon-guide/basics">Guide</a><a href="https://github.com/Stremio/stremio-addon-sdk/tree/master/docs/api">API Reference</a></div><div><h5>Community</h5><a href="https://www.reddit.com/r/stremio/" target="_blank" rel="noreferrer noopener">Reddit</a><a href="https://www.facebook.com/stremio/" target="_blank" rel="noreferrer noopener">Facebook</a><a href="https://twitter.com/stremio" target="_blank" rel="noreferrer noopener">Twitter</a></div><div><h5>More</h5><a href="https://www.stremio.com/">Official Website</a><a href="https://blog.stremio.com/">Blog</a><a href="https://github.com/Stremio/">GitHub</a></div></section><section class="copyright">Copyright © 2019 Stremio</section></footer></div></body></html>
