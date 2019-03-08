@@ -22,7 +22,7 @@ If you've selected "streams" in addon-bootstrap, you will have `streams` already
 
 ## Add streams
 
-At this point we have two videos in our catalog. In odrer to serve them, we will create a function:
+At this point we have two videos in our catalog. In order to serve them, we will create a function:
 
 ```js
 function getMovieStreams(id) {
