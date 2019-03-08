@@ -1,5 +1,5 @@
 ---
-title: Streams
+title: 4. Streams
 ---
 
 The streams in Stremio's add-ons are just shortcuts to the real media. They does not contain any videos. They just point Stremio to the right place where that videos can be found.

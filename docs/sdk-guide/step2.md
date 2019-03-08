@@ -1,5 +1,5 @@
 ---
-title: Adding catalogs
+title: 2. Adding catalogs
 ---
 
 Catalogs are lists of meta items, which appear in Board, Discover and Search.
@@ -108,7 +108,7 @@ In order to provide pagination, filtering and search, you can specify a set of [
 
 In fact you don't need to change your catalog description in order to handle pagination. If your catalog exceeds 100 items you must split them into pages. The next page will be requested, when the user scrolls down past the last item on the current page.
 
-These extra properties are passed to the catalog handler via the `extra` object. 
+These extra properties are passed to the catalog handler via the `extra` object.
 
 When a new page is requested, the `extra` object will receive a `skip` property, that is usually a multiple of 100 and indicates how many items you should skip before you return the next at most 100 items.
 

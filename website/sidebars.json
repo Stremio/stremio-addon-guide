@@ -1,6 +1,6 @@
 {
   "docs": {
-    "Add-on SDK Guide": ["sdk-guide/prelude", "sdk-guide/basics", "sdk-guide/step1", "sdk-guide/step2", "sdk-guide/step3", "sdk-guide/step4", "sdk-guide/step5", "sdk-guide/step6", "sdk-guide/step7"],
+    "Add-on SDK Guide": ["sdk-guide/prelude", "sdk-guide/step1", "sdk-guide/step2", "sdk-guide/step3", "sdk-guide/step4", "sdk-guide/step5"],
     "Generic Add-on Guide": ["basics", "step1", "step2", "step3", "step4", "step5", "step6", "step7", "step8"]
   }
 }

@@ -1,6 +1,5 @@
 ---
-id: step2
-title: Step 2 - Testing the add-on
+title: 2. Testing the add-on
 ---
 
 Previously, we covered the basic structure of the add-on manifest. Now it is time to make sure it is working properly. Let's test it!

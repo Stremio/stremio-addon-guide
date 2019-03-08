@@ -1,5 +1,5 @@
 ---
-title: Meta
+title: 3. Meta
 ---
 
 We call meta a single catalog entry. In our case this will be a movie. The meta provides information for the user. Some of the most notable details are, for example, the title of the movie, it's director and cast, poster, logo and so on.

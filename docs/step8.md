@@ -1,5 +1,5 @@
 ---
-title: Deploying
+title: 8. Deploying
 ---
 
 > **Note:** Although deploying is recommended, there is also the alternative of using [localtunnel](https://github.com/localtunnel/localtunnel) to host your add-ons locally.

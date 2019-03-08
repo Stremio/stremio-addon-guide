@@ -1,5 +1,5 @@
 ---
-title: Get started
+title: 1. Get started
 ---
 
 To initialize your first add-on, we will use the `addon-bootstrap` utility which is provided by `stremio-addon-sdk`.

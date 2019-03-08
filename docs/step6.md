@@ -1,6 +1,5 @@
 ---
-id: step6
-title: Step 6 - Multiple videos
+title: 6. Multiple videos
 ---
 
 In our catalog we have only movies - the simplest form of media Stremio can present.
@@ -67,7 +66,7 @@ Now we will create the series catalog `catalog/series/seriesCatalog.json`:
 }
 ```
 
-As you can see there is nothing new here. Everything is just like our example with the movies catalog. 
+As you can see there is nothing new here. Everything is just like our example with the movies catalog.
 
 > Every catalog is structured the same, no matter what type of resource it represents.
 
