@@ -43,7 +43,7 @@ function getMovieStreams(id) {
 Let's handle this resource:
 
 ```js
-addon.defineStreamHandler(({type, id}) => {
+builder.defineStreamHandler(({type, id}) => {
     // Docs: https://github.com/Stremio/stremio-addon-sdk/blob/master/docs/api/requests/defineStreamHandler.md
     let results;
 

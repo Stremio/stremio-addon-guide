@@ -103,7 +103,7 @@ function getMovieMeta(id) {
     Promise.resolve(metas[id] || null)
 }
 
-addon.defineMetaHandler(({type, id}) => {
+builder.defineMetaHandler(({type, id}) => {
     // Docs: https://github.com/Stremio/stremio-addon-sdk/blob/master/docs/api/requests/defineMetaHandler.md
     let results;
 

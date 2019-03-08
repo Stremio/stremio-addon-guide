@@ -36,7 +36,7 @@ npm start -- --launch
 
 The initialized add-on will have the following structure:
 
-* `addon.js`: this is the JS module that exports the [`addonInterface`](https://github.com/Stremio/stremio-addon-sdk/tree/master/docs#addongetinterface), which is a generic interface to your add-on; it will end in `module.exports = addon.getInterface()`
+* `addon.js`: this is the JS module that exports the [`addonInterface`](https://github.com/Stremio/stremio-addon-sdk/tree/master/docs#addongetinterface), which is a generic interface to your add-on; it will end in `module.exports = builder.getInterface()`
 * `server.js`: this is the executable JS file that will start an HTTP server and optionally launch/install your add-on if you pass `--launch` or `--install`
 
 This pattern is useful and encouraged because it allows your add-on to be used locally by only requiring `addon.js`

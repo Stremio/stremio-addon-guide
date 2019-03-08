@@ -63,7 +63,7 @@ function getMoviesCatalog(catalogName) {
 }
 
 // Docs: https://github.com/Stremio/stremio-addon-sdk/blob/master/docs/api/requests/defineCatalogHandler.md
-addon.defineCatalogHandler(({type, id}) => {
+builder.defineCatalogHandler(({type, id}) => {
     let results;
 
     switch(type) {
@@ -113,7 +113,7 @@ These extra properties are passed to the catalog handler via the `extra` object.
 When a new page is requested, the `extra` object will receive a `skip` property, that is usually a multiple of 100 and indicates how many items you should skip before you return the next at most 100 items.
 
 ```js
-addon.defineCatalogHandler(({type, id, extra}) => {
+builder.defineCatalogHandler(({type, id, extra}) => {
     let results;
 
     switch(type) {
@@ -155,7 +155,7 @@ The isRequired parameter indicates that searching is optional. If set to true th
 Just like the case with pagination, when a search query is available the `search` property will be present in the `extra` object.
 
 ```js
-addon.defineCatalogHandler(({type, id, extra}) => {
+builder.defineCatalogHandler(({type, id, extra}) => {
     let results;
 
     switch(type) {
@@ -208,7 +208,7 @@ We don't list all genres of the content we provide. We list only the ones our ca
 And this is the final result:
 
 ```js
-addon.defineCatalogHandler(({type, id, extra}) => {
+builder.defineCatalogHandler(({type, id, extra}) => {
     let results;
 
     switch(type) {
