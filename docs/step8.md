@@ -17,11 +17,11 @@ You can do that even from the command line:
 <!--DOCUSAURUS_CODE_TABS-->
 <!--bash-->
 ```sh
-curl -d '{"transportUrl": "http://example.com/manifest.json", "transportName": "http"}' -w '\n' -H 'Content-Type: application/json' -X POST 'https://api.strem.io/api/addonPublish'
+curl -d '{"transportUrl": "https://example.com/manifest.json", "transportName": "http"}' -w '\n' -H 'Content-Type: application/json' -X POST 'https://api.strem.io/api/addonPublish'
 ```
 <!--PowerShell-->
 ```PowerShell
-Invoke-RestMethod -Body (@{transportUrl="http://example.com/manifest.json"; transportName="http"} | ConvertTo-Json) -Method 'Post' -ContentType "application/json" -Uri "https://api.strem.io/api/addonPublish"
+Invoke-RestMethod -Body (@{transportUrl="https://example.com/manifest.json"; transportName="http"} | ConvertTo-Json) -Method 'Post' -ContentType "application/json" -Uri "https://api.strem.io/api/addonPublish"
 ```
 <!--END_DOCUSAURUS_CODE_TABS-->
 
