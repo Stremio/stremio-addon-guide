@@ -226,7 +226,7 @@ When you have a large amount of items in your catalog, you have to split it in s
 
 Every page  must be at maximum of 100 items. If you have more then 100 items in your catalog, you must split them into pages. When the user scrolls past the last item in the page, a request will be made for more data.
 
-For the pagination to work correctly, you need to add the `skip` extra option to your catalog description inside the manifest.
+For the pagination to work correctly, you need to add the `skip` extra option to your catalog description.
 
 ```json
 {

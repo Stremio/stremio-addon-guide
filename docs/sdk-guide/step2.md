@@ -106,7 +106,7 @@ In order to provide pagination, filtering and search, you can specify a set of [
 
 ### Pagination
 
-For the pagination to work correctly, you need to add the `skip` extra option to your catalog description inside the manifest.
+For the pagination to work correctly, you need to add the `skip` extra option to your catalog description.
 
 ```js
 "catalogs": [
