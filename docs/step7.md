@@ -226,6 +226,20 @@ When you have a large amount of items in your catalog, you have to split it in s
 
 Every page  must be at maximum of 100 items. If you have more then 100 items in your catalog, you must split them into pages. When the user scrolls past the last item in the page, a request will be made for more data.
 
+For the pagination to work correctly, you need to add the `skip` extra option to your catalog description inside the manifest.
+
+```json
+{
+    "id": "movieCatalog", "type": "movie", "name": "Hello, Movies",
+    "extra": [
+        { "name": "search", "isRequired": false },
+        { "name": "genre", "isRequired": false },
+        { "name": "skip", "isRequired": false }
+    ],
+    "genres" : ["Adventure", "Family", "Sci-Fi", "Demo"]
+}
+```
+
 For example, let's say that our catalog has more than 100 items in it. When the user scrolls past these 100-th item, Stremio will ask for the next batch:
 
 ```

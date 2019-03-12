@@ -43,7 +43,7 @@ function getMoviesCatalog(catalogName) {
     let catalog;
 
     switch(catalogName) {
-        case 'top':
+        case "top":
             catalog = [
                 {
                     id: "tt1254207",
@@ -67,7 +67,7 @@ builder.defineCatalogHandler(({type, id}) => {
     let results;
 
     switch(type) {
-        case 'movie':
+        case "movie":
             results = getMoviesCatalog(id)
             break
        default:
@@ -106,7 +106,21 @@ In order to provide pagination, filtering and search, you can specify a set of [
 
 ### Pagination
 
-In fact you don't need to change your catalog description in order to handle pagination. If your catalog exceeds 100 items you must split them into pages. The next page will be requested, when the user scrolls down past the last item on the current page.
+For the pagination to work correctly, you need to add the `skip` extra option to your catalog description inside the manifest.
+
+```js
+"catalogs": [
+    {
+        "type": "movie",
+        "id": "top",
+        "extra": [
+            { "name": "skip", "isRequired": false },
+        ]
+    },
+],
+```
+
+If your catalog exceeds 100 items you must split them into pages. The next page will be requested, when the user scrolls down past the last item on the current page.
 
 These extra properties are passed to the catalog handler via the `extra` object.
 
@@ -117,7 +131,7 @@ builder.defineCatalogHandler(({type, id, extra}) => {
     let results;
 
     switch(type) {
-        case 'movie':
+        case "movie":
             results = getMoviesCatalog(id)
             break
        default:
@@ -142,6 +156,7 @@ In order to enable searching capability in our add-on, we are going to again upd
         "type": "movie",
         "id": "top",
         "extra": [
+            { "name": "skip", "isRequired": false },
             { "name": "search", "isRequired": false },
         ]
     },
@@ -159,7 +174,7 @@ builder.defineCatalogHandler(({type, id, extra}) => {
     let results;
 
     switch(type) {
-        case 'movie':
+        case "movie":
             results = getMoviesCatalog(id)
             break
        default:
@@ -212,7 +227,7 @@ builder.defineCatalogHandler(({type, id, extra}) => {
     let results;
 
     switch(type) {
-        case 'movie':
+        case "movie":
             results = getMoviesCatalog(id)
             break
        default:
