@@ -218,7 +218,7 @@ We don't list all genres of the content we provide. We list only the ones our ca
 
 > Note
 >
-> `isRequired` must not be set to `true` on more than one extra paremeter. Otherwise your catalog will be ignored.
+> `isRequired` must not be set to `true` on more than one extra property. Otherwise your catalog will be ignored.
 
 And this is the final result:
 
