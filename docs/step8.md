@@ -6,7 +6,7 @@ title: 8. Deploying
 
 Stremio add-ons require hosting in order to be published.
 
-If you've built a great add-on, and need help with hosting your add-on, you are welcome to contact us at [addons@stremio.com](addons@stremio.com)
+If you've built a great add-on, and need help with hosting it, you are welcome to contact us at [addons@stremio.com](addons@stremio.com)
 
 ### Publishing to Stremio
 
@@ -27,4 +27,4 @@ Invoke-RestMethod -Body (@{transportUrl="https://example.com/manifest.json"; tra
 
 You just need to substitute the value of the `transportURL` with the location where your add-on is hosted.
 
-> It's recommended to test your add-on before you publish it. If your URL leads to broken add-on it will be silently accepted, but it will not be listed in the third party add-ons catalog.
+> It's recommended to test your add-on before you publish it. If your URL leads to broken add-on, it will be silently accepted but it will not be listed in the third party add-ons catalog.
