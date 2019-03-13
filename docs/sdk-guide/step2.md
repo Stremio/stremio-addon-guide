@@ -102,7 +102,7 @@ Now, all you have to do, is serve different contents depending on the `type` and
 
 ## Extra properties
 
-In order to provide pagination, filtering and search, you can specify a set of [extra properties](https://github.com/Stremio/stremio-addon-sdk/blob/master/docs/api/responses/manifest.md#extra-properties), for each catalog.
+In order to provide pagination, filtering and search, you can specify a set of [extra properties](https://github.com/Stremio/stremio-addon-sdk/blob/master/docs/api/responses/manifest.md#extra-properties) for each catalog.
 
 ### Pagination
 
@@ -120,11 +120,11 @@ For the pagination to work correctly, you need to add the `skip` extra option to
 ],
 ```
 
-If your catalog exceeds 100 items you must split them into pages. The next page will be requested, when the user scrolls down past the last item on the current page.
+If your catalog exceeds 100 items you must split them into pages. The next page will be requested when the user scrolls down past the last item on the current page.
 
 These extra properties are passed to the catalog handler via the `extra` object.
 
-When a new page is requested, the `extra` object will receive a `skip` property, that is usually a multiple of 100 and indicates how many items you should skip before you return the next at most 100 items.
+When a new page is requested, the `extra` object will receive a `skip` property that is usually a multiple of 100 and indicates how many items you should skip before you return the next at most 100 items.
 
 ```js
 builder.defineCatalogHandler(({type, id, extra}) => {
@@ -148,7 +148,7 @@ builder.defineCatalogHandler(({type, id, extra}) => {
 
 ### Searching
 
-In order to enable searching capability in our add-on, we are going to again update it's manifest. We need to add some "extra" configuration into the catalog definition.
+In order to enable searching capability in your add-on, you need to update it's manifest again. You need to add some "extra" configuration into the catalog definition.
 
 ```js
 "catalogs": [
@@ -163,9 +163,9 @@ In order to enable searching capability in our add-on, we are going to again upd
 ],
 ```
 
-This engages the search capabilities in our catalog. Whenever the user enters a query in the Stremio's search box, our add-on will be queried for results.
+This engages the search capabilities in your catalog. Whenever the user enters a query in the Stremio's search box, your add-on will be queried for results.
 
-The isRequired parameter indicates that searching is optional. If set to true the catalog will not be available in the Board and Discover tabs.
+The isRequired parameter indicates that searching is optional. If set to true, the catalog will not be available in the Board and Discover tabs.
 
 Just like the case with pagination, when a search query is available the `search` property will be present in the `extra` object.
 
@@ -198,7 +198,7 @@ builder.defineCatalogHandler(({type, id, extra}) => {
 
 ### Genre filters
 
-The genre filters are very similar to searching. We just need to add one more thing - a list of genres, our add-on is aware of.
+The genre filters are very similar to searching. You just need to add one more thing - a list of genres your add-on is aware of.
 
 ```js
 "catalogs": [
@@ -214,10 +214,11 @@ The genre filters are very similar to searching. We just need to add one more th
 ],
 ```
 
-We don't list all genres of the content we provide. We list only the ones our catalog is capable of filtering.
+We don't list all genres of content we provide. We only list the ones our catalog is capable of filtering.
 
 > Note
 >
+
 > `isRequired` must not be set to `true` on more than one extra property. Otherwise your catalog will be ignored.
 
 And this is the final result:
