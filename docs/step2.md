@@ -2,7 +2,7 @@
 title: 2. Testing the add-on
 ---
 
-Previously, we covered the basic structure of the add-on manifest. Now it is time to make sure it is working properly. Let's test it!
+Previously, we covered the basic structure of the add-on manifest. Now it's time to make sure it's working properly. Let's test it!
 
 ## Serving
 
@@ -17,7 +17,7 @@ npm -g install http-server
 http-server --cors -c-1
 ```
 
-By default `http-server` serves content on port 8080. It should be printed in your console window, the moment you run it.
+By default `http-server` serves content on port 8080. It should be printed in your console window the moment you run it.
 
 The `-c-1` argument disables the HTTP cache headers. This will be helpful during the add-on development. The cache is useful in production where your add-on will be stressed by a large number of requests.
 
@@ -33,7 +33,7 @@ Now let's install your new add-on. Go to Stremio. Open the add-ons configuration
 
 You can also see the request for your manifest in the `http-server`'s output. In fact, this is where every request to from Stremio to the add-on will be logged. No matter what kind of server or framework you use, it's advised to check your logs regularly. This will help you easily identify possible errors.
 
-You successfully installed your first add-on. It is useless in it's current form so we recommend you remove it by clicking on the `Uninstall` button. You will install it again after you add functionality.
+You successfully installed your first add-on. It is useless in its current form so we recommend you remove it by clicking on the `Uninstall` button. You will install it again after you add functionality.
 
 > Note that reinstalling the add-on by clicking `Uninstall` followed by clicking `Install` does **not** reload the manifest, therefore your changes **will not be applied**. You must install it by typing/pasting the URL to your add-on's manifest in the box labeled "Add-on Repository URL".
 

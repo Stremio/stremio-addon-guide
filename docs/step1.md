@@ -2,7 +2,7 @@
 title: 1. The add-on manifest
 ---
 
-This is the first step in our add-on guide. We'll create the add-on manifest for a very basic add-on.
+This is the first step in our add-on guide. We'll show you how to create the add-on manifest for a very basic add-on.
 
 The add-on manifest should be served on `/manifest.json` route in your add-on.
 
@@ -20,7 +20,7 @@ Its mandatory fields are as follows:
 }
 ```
 
-This is the skeleton of a Stremio add-on's manifest. The `logo` field is optional, but your add-on will look much nicer and more recognizable if it has a logo so we strongly encourage you to add one.
+This is the skeleton of a Stremio add-on's manifest. The `logo` field is optional but your add-on will look much nicer and more recognizable if it has a logo so we strongly encourage you to add one.
 
 Let's take a closer look at the manifest.
 
@@ -41,7 +41,7 @@ Bootstrap the add-on
 
 To see how this works, let's create `manifest.json` with the contents above and serve it via HTTP. You can successfully install it in Stremio.
 
-First we will create a new directory where our add-on will be located. Then we will populate this directory step-by step.
+First we will create a new directory where our add-on will be located. Then we will populate this directory step by step.
 
 <!--DOCUSAURUS_CODE_TABS-->
 <!--bash-->

@@ -2,14 +2,14 @@
 title: 7. Dynamic content
 ---
 
-There are cases where you will want to do some server side work so your add-on can provide better user experience. For example there is a way to paginate the catalogs. You can also provide search and filtering by genre, to name a few.
+There are cases where you will want to do some server side work so your add-on can offer a better user experience. For example, there is a way to paginate the catalogs. You can also provide search and filtering by genre, etc.
 
-In fact here will take a look exactly at these scenarios.
+In fact, here will take a look exactly at these scenarios.
 
 Searching
 ---
 
-In order to enable searching capability in our add-on, we are going to yet again update it's manifest. We need to add some "extra" configuration into the catalog definition.
+In order to enable searching capability in your add-on, you are going to yet again update its manifest. You need to add some "extra" configuration into the catalog definition.
 
 ```js
 "catalogs": [
@@ -23,15 +23,15 @@ In order to enable searching capability in our add-on, we are going to yet again
 ]
 ```
 
-This engages the search capabilities in our catalog. Whenever the user enters a query in the Stremio's search box, our add-on will be queried for results.
+This engages the search capabilities in the catalog. Whenever the user enters a query in the Stremio's search box, your add-on will be queried for results.
 
-The `isRequired` parameter indicates that searching is optional. If set to `true` the catalog will not be available in the Board and Discover tabs.
+The `isRequired` parameter indicates that searching is optional. If set to `true`, the catalog will not be available in the Board and Discover tabs.
 
 All of the `extra` catalog options are described in the [manifest reference](https://github.com/Stremio/stremio-addon-sdk/blob/master/docs/api/responses/manifest.md#extra-properties).
 
 ### Update the manifest
 
-Now our `manifest.json` should look like this:
+Now your `manifest.json` should look like this:
 
 ```json
 {
@@ -65,17 +65,17 @@ Now our `manifest.json` should look like this:
 
 ### Try searching
 
-Let's see what will happen. Reinstall our add-on now. Now try searching for "jellyfish", for example. In the web server logs you will see the following line:
+Let's see what happens. Reinstall your add-on now. Now try searching for "jellyfish" for example. In the web server logs you will see the following line:
 
 ```
 "GET /catalog/movie/movieCatalog/search=jellyfish.json" Error (404): "Not found"
 ```
 
-Here we can see how does Stremio queries our catalog for search results. The series are not pulled because we added this capability only to our movie catalog.
+Here you can see how Stremio queries your catalog for search results. The series are not pulled because you added this capability only to the movie catalog.
 
 ### Provide search results
 
-Let's copy our movie catalog in a file that would match a search query.
+Let's copy the movie catalog in a file that would match a search query.
 
 <!--DOCUSAURUS_CODE_TABS-->
 <!--bash-->
@@ -90,16 +90,16 @@ copy catalog\movie\movieCatalog.json catalog\movie\movieCatalog\search=hello.jso
 ```
 <!--END_DOCUSAURUS_CODE_TABS-->
 
-You can try searching for "hello" (There is no need to reinstall the add-on as long as you do not change the manifest). In the web server's log there is no error now. You can see that the last row of search results consists of our movie catalog.
+You can try searching for "hello" (There is no need to reinstall the add-on as long as you do not change the manifest). In the web server's log there is no error now. You can see that the last row of search results consists of your movie catalog.
 
 ![Search results](/stremio-addon-guide/img/search.png)
 
-Of course, this is a static example, but in a real add-on, you'd want to handle this route dynamically and perform a full text search on every search request.
+Of course, this is a static example but in a real add-on you'd want to handle this route dynamically and perform a full text search on every search request.
 
 Genre filters
 ---
 
-The genre filters are very similar to searching. We just need to add one more thing - a list of genres, our add-on is aware of.
+The genre filters are very similar to searching. You just need to add one more thing - a list of genres that your add-on is aware of.
 
 ```json
 {
@@ -120,7 +120,7 @@ We don't list all genres of the content we provide. We list only the ones we can
 
 ### Update the manifest
 
-Yet again our manifest requires changes. This is it's new form:
+Yet again our manifest requires changes. This is its new form:
 
 ```json
 {
@@ -155,9 +155,9 @@ Yet again our manifest requires changes. This is it's new form:
 
 ### Filter by genre
 
-We will now create smaller catalogs with only the matching meta items.
+You will now create smaller catalogs with the matching meta items only.
 
-Let's create a file called `catalog/movie/movieCatalog/genre=Adventure.json` and put there an one-item catalog with only "The Wizard of Oz":
+Let's create a file called `catalog/movie/movieCatalog/genre=Adventure.json` and put a one-item catalog with only "The Wizard of Oz" in it:
 
 ```json
 {
@@ -167,7 +167,7 @@ Let's create a file called `catalog/movie/movieCatalog/genre=Adventure.json` and
 }
 ```
 
-The next is `catalog/movie/movieCatalog/genre=Sci-Fi.json` containing "Metropolis":
+The next one is `catalog/movie/movieCatalog/genre=Sci-Fi.json` containing "Metropolis":
 
 ```json
 {
@@ -177,7 +177,7 @@ The next is `catalog/movie/movieCatalog/genre=Sci-Fi.json` containing "Metropoli
 }
 ```
 
-We will add "The Wizard of Oz" and our "Jellyfish" into the `catalog/movie/movieCatalog/genre=Family.json`. The "Jellyfish" video doesn't match that genre, but it will be shown if it is in the catalog:
+We will add "The Wizard of Oz" and "Jellyfish" into the `catalog/movie/movieCatalog/genre=Family.json`. The "Jellyfish" video doesn't match that genre but it will be shown if it is in the catalog:
 
 ```json
 {
@@ -196,20 +196,20 @@ We will add "The Wizard of Oz" and our "Jellyfish" into the `catalog/movie/movie
 
 ### Check out the result
 
-As we did changes to the manifest, the add-on have to be reinstalled again.
+As you changed the manifest, the add-on has to be reinstalled again.
 
-If you then open our movie catalog, inside the Discover tab in Stremio, you will see the list of our genres.
+If you then open your movie catalog, inside the Discover tab in Stremio you will see the list of your genres.
 
 ### Handle empty catalogs
-We have stated that this catalog provides a filter for one more genre - the "Demo" genre, but we haven't made a filtered catalog for this genre. It you try to use that filter you will get an error:
+You have stated that this catalog provides a filter for one more genre - the "Demo" genre, but you haven't made a filtered catalog for this genre. If you try to use that filter, you will get an error:
 
 ![Error loading catalog](/stremio-addon-guide/img/genre_error.png)
 
 > **Note**
 >
-> When you define genre filter, your add-on must provide a valid response. Otherwise an error message will appear.
+> When you define a genre filter, your add-on must provide a valid response. Otherwise an error message will appear.
 
-Let's suppose that we have defined that genre as supported, but we don't have items to display yet? In order to avid this error, you must return a empty catalog like this:
+Let's suppose that you have defined that genre as supported but don't have items to display yet. In order to avoid this error, you must return an empty catalog like this:
 
 ```json
 {
@@ -224,7 +224,7 @@ Pagination
 
 When you have a large amount of items in your catalog, you have to split it in several smaller catalogs. Stremio will fetch them sequentially when the user scrolls past the last result.
 
-Every page  must be at maximum of 100 items. If you have more then 100 items in your catalog, you must split them into pages. When the user scrolls past the last item in the page, a request will be made for more data.
+Every page  must be at maximum of 100 items. If you have more then 100 items in your catalog, you must split them into pages. When the user scrolls past the last item on the page, a request will be made for more data.
 
 For the pagination to work correctly, you need to add the `skip` extra option to your catalog description.
 
@@ -240,13 +240,13 @@ For the pagination to work correctly, you need to add the `skip` extra option to
 }
 ```
 
-For example, let's say that our catalog has more than 100 items in it. When the user scrolls past these 100-th item, Stremio will ask for the next batch:
+For example, let's say that your catalog has more than 100 items in it. When the user scrolls past the 100-th item, Stremio will ask for the next batch:
 
 ```
 GET /catalog/movie/movieCatalog.json
 ```
 
-And then
+And then:
 
 ```
 GET /catalog/movie/movieCatalog/skip=100.json
@@ -269,6 +269,6 @@ This will continue until we return an empty catalog:
 Summary
 ---
 
-A Stremio add-on can be crafted to be entirely static. Of course this is not the advised way. For example if you keep on high quality user experience, you will probably want to provide at least a fuzzy word search, so the typos will not affect the result so much.
+A Stremio add-on can be crafted to be entirely static. Of course, we advise against it. If you wish to offer a high-quality user experience, you will probably want to provide at least a fuzzy word search, so the typos will not affect the result so much.
 
 From now on it's up to you how your add-on will perform against the competition.

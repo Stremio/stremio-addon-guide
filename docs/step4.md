@@ -2,21 +2,21 @@
 title: 4. Simple meta
 ---
 
-We call meta a single catalog entry. In our case this will be a movie. The meta provides information for the user. Some of the most notable details are, for example, the title of the movie, it's director and cast, poster, logo and so on. Here we will describe one example movie to give you an idea of how this works.
+We call meta a single catalog entry. In this case, it will be a movie. The meta provides information for the user. Some of the most notable details are, for example, the title of the movie, its director and cast, poster, logo and so on. Here we will describe one example of a movie to give you an idea of how this works.
 
-In most cases Stremio's internal add-on Cinemeta will handle the metadata for us, as long as we use IMDB IDs for our items. Feel free to [skip this step](/stremio-addon-guide/step5) if your add-on doesn't need custom meta.
+In most cases Stremio's internal add-on Cinemeta will handle the metadata for you, as long as you use IMDB IDs for your items. Feel free to [skip this step](/stremio-addon-guide/step5) if your add-on doesn't need custom meta.
 
 Importance of metadata
 ---
 
-Stremio provides the Cinemeta add-on, because of the importance of metadata. If we want superb user experience, we need to provide a high quality data. Cinemeta provides metadata by **IMDB ID**.
+Stremio provides the Cinemeta add-on because of the importance of metadata. If we want superb user experience, we need to provide high quality data. Cinemeta provides metadata by **IMDB ID**.
 
-What if our video is not featured in IMDB? It may be an indie movie or authored by you video, uploaded somewhere. In cases like this we provide a way for your add-on to describe the content it provides.
+What if your video is not featured in IMDB? It may be an indie movie or a video created by you that you've uploaded somewhere. In cases like this we provide a way for your add-on to describe the content it provides.
 
 Update the manifest
 ---
 
-We need to tell Stremio that our add-on provides additional metadata for otherwise unknown content.
+You need to tell Stremio that your add-on provides additional metadata for otherwise unknown content.
 
 ```JavaScript
 "resources": [
@@ -29,9 +29,9 @@ We need to tell Stremio that our add-on provides additional metadata for otherwi
 ]
 ```
 
-Here we introduce a new way of describing a resource - with an object. This object provides not only the `name` of the resource, but also what `types` of content it will describe and also a prefix filter. We call the prefix filter `idPrefixes`. In it's essence it is an array of prefixes, that Stremio checks against to decide whether to ask our add-on for data or not.
+Here we introduce a new way of describing a resource - with an object. This object provides not only the `name` of the resource, but also what `types` of content it will describe and also a prefix filter. We call the prefix filter `idPrefixes`. In its essence it is an array of prefixes that Stremio checks against to decide whether to ask your add-on for data or not.
 
-Here is how it looks our manifest now:
+Here is how it looks in your manifest now:
 
 ```json
 {
@@ -57,16 +57,16 @@ Here is how it looks our manifest now:
 
 Apart from the catalog, every other resource in Stremio makes use of IDs and therefore may be filtered by `idPrefixes`.
 
-In our case we stated that any ID that starts with `hiwrld_` may be handled by our add-on. In case that our add-on is unable to provide data for this ID, Stremio will ask the next one that matches the requested ID.
+In your case you stated that any ID that starts with `hiwrld_` may be handled by your add-on. In case that your add-on is unable to provide data for this ID, Stremio will ask the next one that matches the requested ID.
 
 Challenge Stremio
 ---
 
-Now we stated that we will handle meta items which ID starts wit `hiwrld_`, but our add-on does not provide an item with such ID. So let's create one.
+Now you stated that you will handle meta items which ID starts with `hiwrld_`, but your add-on does not provide an item with such ID. So let's create one.
 
-In the previous step we've created a catalog with two movies. All of them indexed in IMDB. Now we are going to update our catalog with one more meta item, that happens to be a movie, not featured in IMDB - [a jellyfish video](http://jell.yfish.us/).
+In the previous step you've created a catalog with two movies. All of them are indexed in IMDB. The next step is to update your catalog with one more meta item that happens to be a movie not featured in IMDB - [a jellyfish video](http://jell.yfish.us/).
 
-Let's create a catalog entry for our video. Append the following listing in the `metas` array of our catalog.
+Let's create a catalog entry for the video. Append the following listing in the `metas` array of your catalog.
 
 ```json
 {
@@ -78,7 +78,7 @@ Let's create a catalog entry for our video. Append the following listing in the 
 }
 ```
 
-Our catalog should look like this now:
+Your catalog should look like this now:
 
 ```json
 {
@@ -99,7 +99,7 @@ Our catalog should look like this now:
 Provide metadata
 ---
 
-If our add-on matches the type and prefix, Stremio will ask it for metadata. The route's location would be `/meta/<type>/<meta id>.json`. As of now, we provide only the `movie` type.
+If your add-on matches the type and prefix, Stremio will ask it for metadata. The route's location would be `/meta/<type>/<meta id>.json`. As of now, you provide only the `movie` type.
 
 <!--DOCUSAURUS_CODE_TABS-->
 <!--bash-->
@@ -112,7 +112,7 @@ mkdir meta\movie
 ```
 <!--END_DOCUSAURUS_CODE_TABS-->
 
-We have the path ready, so now we can create our `meta/movie/hiwrld_jellyfish.json` containing the video metadata we want to show. As we said in the previous step, the catalog entries are meta preview, so we will build upon it.
+You have the path ready, so now you can create your `meta/movie/hiwrld_jellyfish.json` containing the video metadata you want to show. As we said in the previous step, the catalog entries are meta preview, so you will build upon it.
 
 ```json
 {
@@ -137,10 +137,10 @@ As you can see, we have added a lot more data to our meta info. You can check al
 Test the meta
 ---
 
-You can now reinstall the add-on again, as described in step 2. You will see the new Jellyfish video in our catalog. When you click it, Stremio will request the meta resource from our add-on. This can be seen in the log of our HTTP server. Now all the information we defined above will be displayed in front of us.
+You can now reinstall the add-on again as described in step 2. You will see the new Jellyfish video in your catalog. When you click on it, Stremio will request the meta resource from your add-on. This can be seen in the log of our HTTP server. Now all the information you defined above will be displayed.
 
 Summary
 ---
 
-If you check our add-on now, you'll notice the new jellyfish movie, with pretty pictures and nice description. In the next step we will provide some streams so you can watch the movies.
+If you check our add-on now, you'll notice the new jellyfish movie with pretty pictures and a nice description. In the next step you will add some streams so you can watch the movies.
 

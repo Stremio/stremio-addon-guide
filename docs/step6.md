@@ -2,16 +2,16 @@
 title: 6. Multiple videos
 ---
 
-In our catalog we have only movies - the simplest form of media Stremio can present.
+In your catalog you only have movies - the simplest form of media Stremio can present.
 
-Now we will be dealing with TV shows. In essence the difference is minimal - unlike the TV shows, a movie has only one video.
+Now you will be dealing with TV shows. The difference is minimal - unlike the TV shows, a movie has only one video.
 
 Update the manifest
 ---
 
-TV shows are meant to be presented under the `series` type. We need to update the manifest to indicate that we support this type of metadata along with the `movie` type. We will state that in several places in the manifest - the `types` and `catalogs` arrays and also the types in the meta resource.
+TV shows are meant to be presented under the `series` type. You need to update the manifest to indicate that you support this type of metadata along with the `movie` type. You will state that in several places in the manifest - the `types` and `catalogs` arrays and also the types in the meta resource.
 
-Here is how our `manifest.json` looks now:
+Here is how the `manifest.json` looks now:
 
 ```json
 {
@@ -37,12 +37,12 @@ Here is how our `manifest.json` looks now:
 }
 ```
 
-Now we have "series" listed in the both `types` arrays and also we have one new catalog, called "Hello, TV Shows". Let's populate that catalog. We will add only two shows. This will be enough for demonstration purposes.
+Now you have "series" listed in the both `types` arrays and also you have one new catalog called "Hello, TV Shows". Let's populate that catalog. You will add only two shows. This will be enough for demonstration purposes.
 
 Populate the catalog
 ---
 
-First we need to create a directory for our `series` catalog
+First you need to create a directory for your `series` catalog:
 
 <!--DOCUSAURUS_CODE_TABS-->
 <!--bash-->
@@ -55,7 +55,7 @@ mkdir catalog\series
 ```
 <!--END_DOCUSAURUS_CODE_TABS-->
 
-Now we will create the series catalog `catalog/series/seriesCatalog.json`:
+Now you will create the series catalog `catalog/series/seriesCatalog.json`:
 
 ```json
 {
@@ -66,16 +66,16 @@ Now we will create the series catalog `catalog/series/seriesCatalog.json`:
 }
 ```
 
-As you can see there is nothing new here. Everything is just like our example with the movies catalog.
+As you can see, there is nothing new here. Everything is just like in the example with the movies catalog.
 
 > Every catalog is structured the same, no matter what type of resource it represents.
 
 Provide meta
 ---
 
-Now is the time to provide meta. We will leave the `Cinemeta` add-on to take care about the first show in our catalog. It has a valid IMDB ID that Cinemeta is aware of.
+Now is the time to provide meta. Let the `Cinemeta` add-on to take care about the first show in your catalog. It has a valid IMDB ID that Cinemeta is aware of.
 
-For the second show we will provide our meta.
+For the second show you will provide your own meta.
 
 <!--DOCUSAURUS_CODE_TABS-->
 <!--bash-->
@@ -88,7 +88,7 @@ mkdir meta\series
 ```
 <!--END_DOCUSAURUS_CODE_TABS-->
 
-The contents of our meta item is `meta/series/hiwrld_tt0147753.json`:
+The contents of your meta item is `meta/series/hiwrld_tt0147753.json`:
 
 ```json
 {
@@ -112,25 +112,25 @@ The contents of our meta item is `meta/series/hiwrld_tt0147753.json`:
 }
 ```
 
-Just like the movie's meta, here we build upon the meta preview, returned by the catalog.
+Just like the movie's meta, here you build upon the meta preview returned by the catalog.
 
-Unlike the movie meta, here we have a videos array, that provides video objects with information about every episode. You can learn more about the video objects in the [API documentation](https://github.com/Stremio/stremio-addon-sdk/blob/master/docs/api/responses/meta.md#video-object).
+Unlike the movie meta, here you have a videos array that provides video objects with information about every episode. You can learn more about the video objects in the [API documentation](https://github.com/Stremio/stremio-addon-sdk/blob/master/docs/api/responses/meta.md#video-object).
 
 Checking the progress
 ---
 
-At this point we have provided enough data to be able to test the result.
+At this point you have provided enough data to be able to test the result.
 
-Reinstall our add-on and see if our new catalog for series is present at the bottom of Stremio's board.
+Reinstall your add-on and see if your new catalog for series is available at the bottom of Stremio's board.
 
-There you should see a section called "Series - Hello, TV Shows" containing the two shows from our catalog. If you open any of them, a detailed metadata should be revealed, with the episodes listed on the right side.
+There you should see a section called "Series - Hello, TV Shows" containing the two shows from your catalog. If you open any of them, detailed metadata should be revealed with the episodes listed on the right side.
 
 ![The series catalog](/stremio-addon-guide/img/catalog-series.png)
 
 Add streams
 ---
 
-Again we need to create a directory for our `series` streams:
+Again, you need to create a directory for your `series` streams:
 
 <!--DOCUSAURUS_CODE_TABS-->
 <!--bash-->
@@ -170,9 +170,9 @@ The most notable thing here is not the stream objects but the resource location.
 Test the result
 ---
 
-We are ready with this step. You can now test again the progress of our add-on. Reinstall it and check if the episodes of the second show are playable. If for some reason they are not, check the logs of the HTTP server. It could be a typo in the route or error in a JSON object.
+We are ready with this step. You can now test the progress of your add-on again. Reinstall it and check if the episodes of the second show are playable. If for some reason they are not, check the logs of the HTTP server. It could be a typo in the route or error in a JSON object.
 
 Summary
 ---
 
-Here we extended almost any aspect of our add-on. We covered the case with multiple videos and how it affects the other parts of our add-on. You can now try to implement a `channel` catalog on your own. It is very similar to how series work.
+Here we extended almost any aspect of your add-on. We covered the case with multiple videos and how it affects the other parts of the add-on. You can now try to implement a `channel` catalog on your own. It is very similar to how series work.

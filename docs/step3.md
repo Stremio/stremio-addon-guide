@@ -2,31 +2,31 @@
 title: 3. The catalog
 ---
 
-We covered the basic structure of the add-on manifest. Now it is time to make our add-on useful.
+We covered the basic structure of the add-on manifest. Now it is time to make your add-on useful.
 
-Here we will create a catalog. The catalog is a list of meta items grouped by their type. It can be a list of movies, TV shows and more.
+At this step, you will create a catalog. The catalog is a list of meta items grouped by their type. It can be a list of movies, TV shows and more.
 
 Let's create a catalog.
 
 ## Deciding the types
 
-Our first thing to consider, when creating an add-on catalog is to choose what types of media will be provided.
+The first thing to consider when creating an add-on catalog is what types of media will be provided.
 
 The type determines the way the content is presented and organized within the app.
 
 `movie` - Presents a single movie. This type doesn't provide any `video` objects. The sources are directly linked to the meta item.
 
-`series` - Used for TV shows and like. The videos are organized in seasons.
+`series` - Used for TV shows and the like. The videos are organized in seasons.
 
-`channel` - Channel of videos. It's like series, but the videos are listed in single list.
+`channel` - Channel of videos. It's very similar to series but the videos are listed in a single list.
 
-`tv` - Used for live TV. Similar to movie, but the sources are expected to be live stream without duration.
+`tv` - Used for live TV. Similar to movie, but the sources are expected to be live-streamed without duration.
 
-We can choose one or more types. For this basic example we will use only the movie type.
+You can choose one or more types. For this basic example, we will use only the movie type.
 
 ## Update the manifest
 
-As we are adding more features to our add-on we must update the manifest so Stremio will be able to recognize and use these features.
+As you are adding more features to your add-on, you must update the manifest so Stremio is be able to recognize and use these features.
 
 We need to do several changes.
 
@@ -57,9 +57,9 @@ Now Stremio can search our add-on for a movie catalog.
 
 ## Populate the catalog
 
-Stremio catalogs are structured like arrays of so called `meta preview`. It is preview because it contains only the minimal portion of information, required for our catalog to be rendered.
+Stremio catalogs are structured like arrays of the so called `meta preview`. It is a preview because it contains only the minimal amount of information required for the catalog to be rendered.
 
-First inside the add-on directory we will create directory tree, starting with with our resource name - catalog. Inside we place a directory for each type we support. In our case this is only a movie directory. There we place our catalog file.
+First inside the add-on directory you will create directory tree, starting with the resource name - catalog. Inside, you place a directory for each supported type. In this case, this is only a movie directory. Thes is where you place your catalog file.
 
 <!--DOCUSAURUS_CODE_TABS-->
 <!--bash-->
@@ -72,9 +72,9 @@ mkdir catalog\movie
 ```
 <!--END_DOCUSAURUS_CODE_TABS-->
 
-The name if the catalog's file must match the catalog `id`, that we defined in the manifest.
+The name of the catalog's file must match the catalog `id` that you defined in the manifest.
 
-This is our desired file structure:
+This is your desired file structure:
 
     my-stremio-addon
     +-- manifest.json
@@ -82,7 +82,7 @@ This is our desired file structure:
         +-- movie
             +-- movieCatalog.json
 
-We will add two movies in our catalog. The contents of the file should look like this:
+Now add two movies to your catalog. The contents of the file should look like this:
 
 ```json
 {
@@ -93,24 +93,24 @@ We will add two movies in our catalog. The contents of the file should look like
 }
 ```
 
-Write this into our `catalog/movie/movieCatalog.json`.
+Write this into the `catalog/movie/movieCatalog.json`.
 
-As you can see we have `type`, `id`, `name`, `poster` and `genres` for each item in the catalog.
+As you can see, you have `type`, `id`, `name`, `poster` and `genres` for each item in the catalog.
 
 The `type` should match the catalog type.
 
-You can use any unique string for the `id`. In our case we use the corresponding IMDB ID. Stremio features an system add-on called `Cinemeta`. This add-on provides detailed metadata for any movie or TV show that matches valid IMDB ID.
+You can use any unique string for the `id`. In this case we use the corresponding IMDB ID. Stremio features an system add-on called `Cinemeta`. This add-on provides detailed metadata for any movie or TV show that matches a valid IMDB ID.
 
-Srtemio's catalog consists of grid of images, fetched from the `poster` field of every item. It should be valid URL to an image.
+Srtemio's catalog consists of grid of images, fetched from the `poster` field of every item. It should be a valid URL to an image.
 
 The `name` and `genres` are just human-readable descriptive fields. The `genres` are also used as filters in the `Discover` tab.
 
 See it in action
 ---
 
-Now go back to step 2 and install our add-on again. If you keep the `http-server` running you can skip to the installation part.
+Now go back to step 2 and install our add-on again. If you keep the `http-server` running, you can skip ahead to the installation part.
 
-When you navigate Stremio to the **Board** you will see, that our catalog is listed at the very bottom. The catalogs in the board are listed in the order of the installation of add-ons.
+When you navigate to the Stremio **Board** you will see that your catalog is listed at the very bottom. The catalogs in the Board are listed in the order of the installation of add-ons.
 
 ![Basic catalog](/stremio-addon-guide/img/catalog.png)
 
