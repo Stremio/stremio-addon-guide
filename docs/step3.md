@@ -59,7 +59,7 @@ Now Stremio can search our add-on for a movie catalog.
 
 Stremio catalogs are structured like arrays of the so called `meta preview`. It is a preview because it contains only the minimal amount of information required for the catalog to be rendered.
 
-First inside the add-on directory you will create directory tree, starting with the resource name - catalog. Inside, you place a directory for each supported type. In this case, this is only a movie directory. Thes is where you place your catalog file.
+First inside the add-on directory you will create directory tree, starting with the resource name - catalog. Inside, you place a directory for each supported type. In this case, this is only a movie directory. This is where you place your catalog file.
 
 <!--DOCUSAURUS_CODE_TABS-->
 <!--bash-->
