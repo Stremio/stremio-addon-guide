@@ -2,7 +2,7 @@
 title: 4. Streams
 ---
 
-The streams in Stremio's add-ons are just shortcuts to the real media. They does not contain any videos. They just point Stremio to the right place where that videos can be found.
+The streams in Stremio's add-ons are just shortcuts to the actual media. They do not contain any videos but instead, they just point Stremio to the right place where these videos can be found.
 
 ## Update the manifest
 
@@ -22,7 +22,7 @@ If you've selected "streams" in addon-bootstrap, you will have `streams` already
 
 ## Add streams
 
-At this point we have two videos in our catalog. In order to serve them, we will create a function:
+At this point you have two videos in your catalog. In order to serve them, you will create a function:
 
 ```js
 function getMovieStreams(id) {
@@ -61,4 +61,4 @@ builder.defineStreamHandler(({type, id}) => {
 
 > When your add-on is unable to provide streams for particular video, you have to return an empty streams array. Otherwise and error is shown to the user.
 
-> As you can see the stream object can point to variety of streams. The complete reference is [located here](https://github.com/Stremio/stremio-addon-sdk/blob/master/docs/api/responses/stream.md).
+> As you can see, the stream object can point to variety of streams. The complete reference is [located here](https://github.com/Stremio/stremio-addon-sdk/blob/master/docs/api/responses/stream.md).
