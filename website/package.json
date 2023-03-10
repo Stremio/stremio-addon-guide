@@ -9,6 +9,9 @@
     "rename-version": "docusaurus-rename-version"
   },
   "devDependencies": {
-    "docusaurus": "^1.7.2"
+    "docusaurus": "^1.14.7"
+  },
+  "dependencies": {
+    "webpack": "^5.76.0"
   }
 }

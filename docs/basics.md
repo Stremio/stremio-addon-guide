@@ -46,7 +46,7 @@ The resources are basically a segmented way to build the content tree we mention
 | Resource      | Endpoint         | Description                                                                                                                                   |
 | --------      | --------         | -----------                                                                                                                                   |
 | **manifest**  | `/manifest.json` | The add-on description and capabilities.                                                                                                      |
-| **catalogs**  | `/catalog/`      | Summarized collection of meta items. Catalogs are displayed on the Srtemio **Board**. You can also browse the catalogs in the **Discover**. |
+| **catalogs**  | `/catalog/`      | Summarized collection of meta items. Catalogs are displayed on the Stremio **Board**. You can also browse the catalogs in the **Discover**. |
 | **metadata**  | `/meta/`         | Detailed description of a meta item. This description is displayed when the user selects an item form the catalog.                              |
 | **streams**   | `/stream/`       | Tells Stremio how to obtain the media content. It may be torrent info hash, HTTP URL, etc.                                                   |
 | **subtitles** | `/subtitles/`    | Subtitles resource for the chosen media.                                                                                                      |
