@@ -100,7 +100,7 @@ function getMovieMeta(id) {
             runtime: "30 sec"
         },
     }
-    Promise.resolve(metas[id] || null)
+    return Promise.resolve(metas[id] || null)
 }
 
 builder.defineMetaHandler(({type, id}) => {
